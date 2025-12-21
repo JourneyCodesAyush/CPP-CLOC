@@ -16,9 +16,10 @@ void print::print_single(stats::Stats &stats)
               << "\n";
 }
 
-void print::print_result_map(std::map<detector::FileType, stats::Stats> &statistics)
+void print::print_result_map(std::map<detector::FileType, stats::Stats> &statistics, double duration_ms)
 {
-    std::cout << "C++ implementation of CLOC\n";
+    std::cout << "\nC++ implementation of CLOC\n";
+    std::cout << "Total time: " << duration_ms << " seconds\n";
     // Header
     std::cout << std::left << std::setw(12) << "Language"
               << std::right << std::setw(6) << "Files"
