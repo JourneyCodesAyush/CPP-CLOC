@@ -1,5 +1,5 @@
 #include <vector>
-#include <iostream>
+#include <chrono>
 #include <map>
 
 #include "middleware.hpp"
@@ -11,6 +11,8 @@
 void middleware::process_file(const char *filename)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
+
+    auto start = std::chrono::high_resolution_clock::now();
 
     detector::FileType file_type = detector::detect_file_type(filename);
     switch (file_type)
@@ -81,5 +83,10 @@ void middleware::process_file(const char *filename)
         break;
     }
 
-    print::print_result_map(statistics_map);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
+
+    double duration_seconds = duration_ms / 1000.0;
+
+    print::print_result_map(statistics_map, duration_seconds);
 }
