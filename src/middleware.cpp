@@ -31,12 +31,31 @@ void middleware::process_file(const char *filename)
     }
     case detector::FileType::CPP:
     {
-        // TODO
+        stats::Stats new_stats = analyzer::analyze_c(filename);
+        new_stats.file_type = "C++";
+        if (statistics_map.count(file_type))
+        {
+            statistics_map[file_type].merge(new_stats);
+        }
+        else
+        {
+            statistics_map[file_type] = new_stats;
+        }
         break;
     }
     case detector::FileType::JAVA:
     {
-        // TODO
+        stats::Stats new_stats = analyzer::analyze_c(filename);
+        new_stats.file_type = "Java";
+        if (statistics_map.count(file_type))
+        {
+            statistics_map[file_type].merge(new_stats);
+        }
+        else
+        {
+            statistics_map[file_type] = new_stats;
+        }
+
         break;
     }
 
@@ -48,7 +67,6 @@ void middleware::process_file(const char *filename)
     }
     case detector::FileType::BASH:
     case detector::FileType::POWERSHELL:
-
         // TODO: '#' is the comment syntax
         // Similar syntax in Bash and PowerShell
         break;
@@ -59,7 +77,6 @@ void middleware::process_file(const char *filename)
 
     case detector::FileType::UNKNOWN:
         break;
-
     default:
         break;
     }
