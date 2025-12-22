@@ -22,6 +22,13 @@ static void check_and_merge(std::map<detector::FileType, stats::Stats> &statisti
     }
 }
 
+static void analyze_and_merge(std::map<detector::FileType, stats::Stats> &statistics_map, const std::string &filename, const comment_syntax::CommentSyntax &syntax, const detector::FileType &file_type, const std::string &file_extension)
+{
+    stats::Stats new_stats = analyzer::analyze_files(filename, syntax);
+    new_stats.file_type = file_extension;
+    check_and_merge(statistics_map, new_stats, file_type);
+}
+
 void middleware::process_file(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
@@ -35,48 +42,34 @@ void middleware::process_file(const std::vector<std::string> &files)
         {
         case detector::FileType::C:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-            new_stats.file_type = "C";
-            check_and_merge(statistics_map, new_stats, file_type);
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::C, "C");
 
             break;
         }
         case detector::FileType::CPP:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-            new_stats.file_type = "C++";
-            check_and_merge(statistics_map, new_stats, file_type);
-
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::CPP, "C++");
             break;
         }
         case detector::FileType::JAVA:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-            new_stats.file_type = "Java";
-            check_and_merge(statistics_map, new_stats, file_type);
-
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVA, "Java");
             break;
         }
 
         case detector::FileType::PYTHON:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::PythonComments);
-            new_stats.file_type = "Python";
-            check_and_merge(statistics_map, new_stats, file_type);
+            analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::C, "Python");
             break;
         }
         case detector::FileType::BASH:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
-            new_stats.file_type = "Bash";
-            check_and_merge(statistics_map, new_stats, file_type);
+            analyze_and_merge(statistics_map, filename, comment_syntax::BashPowerShellComments, detector::FileType::BASH, "Bash");
             break;
         }
         case detector::FileType::POWERSHELL:
         {
-            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
-            new_stats.file_type = "PowerShell";
-            check_and_merge(statistics_map, new_stats, file_type);
+            analyze_and_merge(statistics_map, filename, comment_syntax::BashPowerShellComments, detector::FileType::POWERSHELL, "PowerShell");
             break;
         }
 
