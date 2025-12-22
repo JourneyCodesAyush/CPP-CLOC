@@ -8,19 +8,29 @@
 std::vector<std::string> list_files(const std::string &path)
 {
     namespace fs = std::filesystem;
+
     std::vector<std::string> files;
-    try
+
+    if (fs::is_directory(path))
     {
-        for (const auto &entry : fs::recursive_directory_iterator(path))
+        try
         {
-            if (entry.is_regular_file())
+            for (const auto &entry : fs::recursive_directory_iterator(path))
             {
-                files.push_back(entry.path().string());
+                if (entry.is_regular_file())
+                {
+                    files.push_back(entry.path().string());
+                }
             }
         }
+        catch (std::exception &e)
+        {
+            throw std::runtime_error(std::string("Error processing files...\n %s") + e.what());
+        }
     }
-    catch (std::exception &e)
+    else if (fs::is_regular_file(path))
     {
+        files.push_back(fs::path(path).string());
     }
     return files;
 }
