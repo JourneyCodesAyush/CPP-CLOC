@@ -57,15 +57,25 @@ void middleware::process_file(const char *filename)
 
     case detector::FileType::PYTHON:
     {
-        // TODO: Comment detection for Python
-        // Must include triple quoted strings as comment
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::PythonComments);
+        new_stats.file_type = "Python";
+        check_and_merge(statistics_map, new_stats, file_type);
         break;
     }
     case detector::FileType::BASH:
-    case detector::FileType::POWERSHELL:
-        // TODO: '#' is the comment syntax
-        // Similar syntax in Bash and PowerShell
+    {
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
+        new_stats.file_type = "Bash";
+        check_and_merge(statistics_map, new_stats, file_type);
         break;
+    }
+    case detector::FileType::POWERSHELL:
+    {
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
+        new_stats.file_type = "PowerShell";
+        check_and_merge(statistics_map, new_stats, file_type);
+        break;
+    }
 
     case detector::FileType::BATCH:
         // TODO: Comment syntax is '@REM' and '::'
