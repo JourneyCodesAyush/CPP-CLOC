@@ -1,6 +1,7 @@
 #include <vector>
 #include <chrono>
 #include <map>
+#include <string>
 
 #include "middleware.hpp"
 #include "detector.hpp"
@@ -21,72 +22,74 @@ static void check_and_merge(std::map<detector::FileType, stats::Stats> &statisti
     }
 }
 
-void middleware::process_file(const char *filename)
+void middleware::process_file(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
 
     auto start = std::chrono::high_resolution_clock::now();
 
-    detector::FileType file_type = detector::detect_file_type(filename);
-    switch (file_type)
+    for (const std::string &filename : files)
     {
-    case detector::FileType::C:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-        new_stats.file_type = "C";
-        check_and_merge(statistics_map, new_stats, file_type);
+        detector::FileType file_type = detector::detect_file_type(filename);
+        switch (file_type)
+        {
+        case detector::FileType::C:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
+            new_stats.file_type = "C";
+            check_and_merge(statistics_map, new_stats, file_type);
 
-        break;
-    }
-    case detector::FileType::CPP:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-        new_stats.file_type = "C++";
-        check_and_merge(statistics_map, new_stats, file_type);
+            break;
+        }
+        case detector::FileType::CPP:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
+            new_stats.file_type = "C++";
+            check_and_merge(statistics_map, new_stats, file_type);
 
-        break;
-    }
-    case detector::FileType::JAVA:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
-        new_stats.file_type = "Java";
-        check_and_merge(statistics_map, new_stats, file_type);
+            break;
+        }
+        case detector::FileType::JAVA:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
+            new_stats.file_type = "Java";
+            check_and_merge(statistics_map, new_stats, file_type);
 
-        break;
-    }
+            break;
+        }
 
-    case detector::FileType::PYTHON:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::PythonComments);
-        new_stats.file_type = "Python";
-        check_and_merge(statistics_map, new_stats, file_type);
-        break;
-    }
-    case detector::FileType::BASH:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
-        new_stats.file_type = "Bash";
-        check_and_merge(statistics_map, new_stats, file_type);
-        break;
-    }
-    case detector::FileType::POWERSHELL:
-    {
-        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
-        new_stats.file_type = "PowerShell";
-        check_and_merge(statistics_map, new_stats, file_type);
-        break;
-    }
+        case detector::FileType::PYTHON:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::PythonComments);
+            new_stats.file_type = "Python";
+            check_and_merge(statistics_map, new_stats, file_type);
+            break;
+        }
+        case detector::FileType::BASH:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
+            new_stats.file_type = "Bash";
+            check_and_merge(statistics_map, new_stats, file_type);
+            break;
+        }
+        case detector::FileType::POWERSHELL:
+        {
+            stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::BashPowerShellComments);
+            new_stats.file_type = "PowerShell";
+            check_and_merge(statistics_map, new_stats, file_type);
+            break;
+        }
 
-    case detector::FileType::BATCH:
-        // TODO: Comment syntax is '@REM' and '::'
-        break;
+        case detector::FileType::BATCH:
+            // TODO: Comment syntax is '@REM' and '::'
+            break;
 
-    case detector::FileType::UNKNOWN:
-        break;
-    default:
-        break;
+        case detector::FileType::UNKNOWN:
+            break;
+        default:
+            break;
+        }
     }
-
     auto end = std::chrono::high_resolution_clock::now();
     auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
