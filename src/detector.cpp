@@ -5,7 +5,7 @@
 
 #include "detector.hpp"
 
-detector::FileType detector::detect_file_type(const char *filename)
+detector::FileType detector::detect_file_type(const std::string &filename)
 {
     namespace fs = std::filesystem;
 

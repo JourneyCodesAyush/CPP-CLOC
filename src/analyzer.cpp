@@ -8,7 +8,7 @@
 #include "stats.hpp"
 #include "string_operation_strip.hpp"
 
-stats::Stats analyzer::analyze_files(const char *filename, const comment_syntax::CommentSyntax &syntax)
+stats::Stats analyzer::analyze_files(const std::string &filename, const comment_syntax::CommentSyntax &syntax)
 {
     std::ifstream infile(filename);
     std::string line;

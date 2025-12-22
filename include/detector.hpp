@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 namespace detector
 {
     enum class FileType
@@ -14,5 +16,5 @@ namespace detector
         UNKNOWN
     };
 
-    FileType detect_file_type(const char *filename);
+    FileType detect_file_type(const std::string &filename);
 }
