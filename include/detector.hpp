@@ -1,5 +1,4 @@
-#ifndef detector_cloc_hpp
-#define detector_cloc_hpp
+#pragma once
 
 namespace detector
 {
@@ -17,5 +16,3 @@ namespace detector
 
     FileType detect_file_type(const char *filename);
 }
-
-#endif

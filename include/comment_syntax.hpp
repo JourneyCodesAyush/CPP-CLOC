@@ -1,5 +1,4 @@
-#ifndef cloc_comment_syntax_hpp
-#define cloc_comment_syntax_hpp
+#pragma once
 
 #include <string>
 
@@ -17,5 +16,3 @@ namespace comment_syntax
     const CommentSyntax PythonComments{true, "#", "\"\"\"", "\"\"\""};
     const CommentSyntax BashComments{true, "#", "\"\"\"", "\"\"\""};
 }
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef stats_cloc_hpp
-#define stats_cloc_hpp
+#pragma once
 
 #include <string>
 
@@ -27,5 +26,3 @@ namespace stats
         }
     };
 }
-
-#endif
