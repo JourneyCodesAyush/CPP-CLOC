@@ -9,6 +9,18 @@
 #include "analyzer.hpp"
 #include "comment_syntax.hpp"
 
+static void check_and_merge(std::map<detector::FileType, stats::Stats> &statistics_map, stats::Stats &new_stats, const detector::FileType &file_type)
+{
+    if (statistics_map.count(file_type))
+    {
+        statistics_map[file_type].merge(new_stats);
+    }
+    else
+    {
+        statistics_map[file_type] = new_stats;
+    }
+}
+
 void middleware::process_file(const char *filename)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
@@ -22,42 +34,23 @@ void middleware::process_file(const char *filename)
     {
         stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "C";
-        if (statistics_map.count(file_type))
-        {
-            statistics_map[file_type].merge(new_stats);
-        }
-        else
-        {
-            statistics_map[file_type] = new_stats;
-        }
+        check_and_merge(statistics_map, new_stats, file_type);
+
         break;
     }
     case detector::FileType::CPP:
     {
         stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "C++";
-        if (statistics_map.count(file_type))
-        {
-            statistics_map[file_type].merge(new_stats);
-        }
-        else
-        {
-            statistics_map[file_type] = new_stats;
-        }
+        check_and_merge(statistics_map, new_stats, file_type);
+
         break;
     }
     case detector::FileType::JAVA:
     {
         stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "Java";
-        if (statistics_map.count(file_type))
-        {
-            statistics_map[file_type].merge(new_stats);
-        }
-        else
-        {
-            statistics_map[file_type] = new_stats;
-        }
+        check_and_merge(statistics_map, new_stats, file_type);
 
         break;
     }
@@ -85,7 +78,7 @@ void middleware::process_file(const char *filename)
     }
 
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration_ms = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
 
     double duration_seconds = duration_ms / 1000.0;
 
