@@ -6,7 +6,8 @@
 #include "detector.hpp"
 #include "stats.hpp"
 #include "print.hpp"
-#include "analyzer_c_like.hpp"
+#include "analyzer.hpp"
+#include "comment_syntax.hpp"
 
 void middleware::process_file(const char *filename)
 {
@@ -19,7 +20,7 @@ void middleware::process_file(const char *filename)
     {
     case detector::FileType::C:
     {
-        stats::Stats new_stats = analyzer::analyze_c(filename);
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "C";
         if (statistics_map.count(file_type))
         {
@@ -33,7 +34,7 @@ void middleware::process_file(const char *filename)
     }
     case detector::FileType::CPP:
     {
-        stats::Stats new_stats = analyzer::analyze_c(filename);
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "C++";
         if (statistics_map.count(file_type))
         {
@@ -47,7 +48,7 @@ void middleware::process_file(const char *filename)
     }
     case detector::FileType::JAVA:
     {
-        stats::Stats new_stats = analyzer::analyze_c(filename);
+        stats::Stats new_stats = analyzer::analyze_files(filename, comment_syntax::CLikeComments);
         new_stats.file_type = "Java";
         if (statistics_map.count(file_type))
         {
