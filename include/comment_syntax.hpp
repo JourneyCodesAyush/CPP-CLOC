@@ -14,5 +14,5 @@ namespace comment_syntax
 
     const CommentSyntax CLikeComments{true, "//", "/*", "*/"};
     const CommentSyntax PythonComments{true, "#", "\"\"\"", "\"\"\""};
-    const CommentSyntax BashComments{true, "#", "\"\"\"", "\"\"\""};
+    const CommentSyntax BashPowerShellComments{false, "#", "", ""};
 }
