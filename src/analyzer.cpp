@@ -29,7 +29,7 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                 if (inside_multi_line_comment)
                 {
                     statistic.lines_of_comment++;
-                    if (line.size() >= 2 and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                    if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
                     {
                         inside_multi_line_comment = false;
                     }
@@ -44,7 +44,7 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                     else if (line.size() >= syntax.multi_line_start.length() and line.compare(0, syntax.multi_line_start.length(), syntax.multi_line_start) == 0)
                     {
                         statistic.lines_of_comment++;
-                        if (line.size() >= 2 and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                        if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
                         {
                             inside_multi_line_comment = false;
                         }
