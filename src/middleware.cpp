@@ -51,6 +51,11 @@ void middleware::process_file(const std::vector<std::string> &files)
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::CPP, "C++");
             break;
         }
+        case detector::FileType::C_CPP_HEADER:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::CPP, "C/C++ Header");
+            break;
+        }
         case detector::FileType::JAVA:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVA, "Java");
