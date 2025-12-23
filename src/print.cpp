@@ -36,12 +36,24 @@ void print::print_result_map(std::map<detector::FileType, stats::Stats> &statist
               << std::setw(15) << "Total"
               << "\n";
 
+    stats::Stats total_stats;
+    total_stats.file_type = "SUM"; // For the last row
+
     for (auto &pair : statistics)
     {
         print_dashes();
         std::cout << "\n";
-        print::print_single(pair.second);
+        print_single(pair.second);
+
+        total_stats.lines_of_code += pair.second.lines_of_code;
+        total_stats.lines_of_comment += pair.second.lines_of_comment;
+        total_stats.blank_lines += pair.second.blank_lines;
+        total_stats.file_count += pair.second.file_count;
     }
+
+    print_dashes();
+    std::cout << "\n";
+    print_single(total_stats);
     print_dashes();
     std::cout << "\n";
 }
