@@ -19,6 +19,7 @@
     - [Directory Analysis](#directory-analysis)
     - [Single File Analysis](#single-file-analysis)
   - [⚙️ Features](#️-features)
+  - [📦 Dependencies](#-dependencies)
   - [⚠️ Known Limitations](#️-known-limitations)
   - [📁 Project Structure](#-project-structure)
   - [🧑‍💻 Development Guide](#-development-guide)
@@ -142,6 +143,18 @@ SUM                        6      372           6           45            423
 - ✅ Cross-platform (Windows, Linux, macOS)
 - ✅ Lightweight and fast
 - ⚠️ Minimal dependency: requires `argparse.hpp` (included in `include/argparse/`)
+
+---
+
+## 📦 Dependencies
+
+**CPP-CLOC** includes the following external dependency:
+
+| Library        | License | Notes                                                                                                                          |
+| -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `argparse.hpp` | MIT     | Header-only C++17 library for command-line argument parsing, included in `include/argparse/`. Original authors retain license. |
+
+> ⚠️ All external code is included as-is and is subject to its original license. CPP-CLOC itself is MIT-licensed.
 
 ---
 
