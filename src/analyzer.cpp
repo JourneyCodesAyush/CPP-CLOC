@@ -50,7 +50,16 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                     }
                     else if (line.size() >= syntax.multi_line_start.length() and line.compare(0, syntax.multi_line_start.length(), syntax.multi_line_start) == 0)
                     {
-                        statistic.lines_of_comment++;
+                        size_t end_pos = line.find(syntax.multi_line_end);
+                        if (end_pos != std::string::npos)
+                        {
+                            std::string after_comment = line.substr(end_pos + syntax.multi_line_end.length());
+                            if (strip(after_comment).empty())
+                                statistic.lines_of_comment++;
+                            else
+                                statistic.lines_of_code++;
+                        }
+
                         if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
                         {
                             inside_multi_line_comment = false;
@@ -73,7 +82,16 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                             statistic.lines_of_comment++;
 
                         // set multiline mode
-                        inside_multi_line_comment = (end_pos == std::string::npos);
+                        // inside_multi_line_comment = (end_pos == std::string::npos);
+                        if (end_pos == std::string::npos)
+                        {
+                            inside_multi_line_comment = true;
+                            statistic.lines_of_comment++;
+                        }
+                        else
+                        {
+                            inside_multi_line_comment = false;
+                        }
                     }
                     else if (line.empty())
                     {
