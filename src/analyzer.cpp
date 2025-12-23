@@ -53,6 +53,21 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                             inside_multi_line_comment = true;
                         }
                     }
+                    else if (line.find(syntax.multi_line_start) != std::string::npos)
+                    {
+                        size_t start_pos = line.find(syntax.multi_line_start);
+                        size_t end_pos = line.find(syntax.multi_line_end, start_pos);
+
+                        // Code before /*
+                        if (start_pos > 0)
+                            // No comment counted as per CLOC's philosophy
+                            statistic.lines_of_code++;
+                        else
+                            statistic.lines_of_comment++;
+
+                        // set multiline mode
+                        inside_multi_line_comment = (end_pos == std::string::npos);
+                    }
                     else if (line.empty())
                     {
                         statistic.blank_lines++;
