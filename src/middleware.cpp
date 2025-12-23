@@ -67,6 +67,16 @@ void middleware::process_file(const std::vector<std::string> &files)
             analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::C, "Python");
             break;
         }
+        case detector::FileType::JAVASCRIPT:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVASCRIPT, "JavaScript");
+            break;
+        }
+        case detector::FileType::TYPESCRIPT:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::TYPESCRIPT, "TypeScript");
+            break;
+        }
         case detector::FileType::BASH:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::BashPowerShellComments, detector::FileType::BASH, "Bash");
