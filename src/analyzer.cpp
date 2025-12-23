@@ -28,10 +28,17 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
 
                 if (inside_multi_line_comment)
                 {
-                    statistic.lines_of_comment++;
-                    if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                    if (line.empty())
                     {
-                        inside_multi_line_comment = false;
+                        statistic.blank_lines++;
+                    }
+                    else
+                    {
+                        statistic.lines_of_comment++;
+                        if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                        {
+                            inside_multi_line_comment = false;
+                        }
                     }
                     continue;
                 }
