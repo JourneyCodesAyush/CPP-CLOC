@@ -8,6 +8,7 @@ namespace detector
     {
         C,
         CPP,
+        C_CPP_HEADER,
         JAVA,
         PYTHON,
         BASH,

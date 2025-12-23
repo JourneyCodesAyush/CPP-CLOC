@@ -26,6 +26,10 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::CPP;
     }
+    else if (extension == ".h" or extension == ".hpp")
+    {
+        return detector::FileType::C_CPP_HEADER;
+    }
     else if (extension == ".py")
     {
         return detector::FileType::PYTHON;
