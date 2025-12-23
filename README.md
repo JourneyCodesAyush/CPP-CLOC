@@ -58,7 +58,7 @@ It provides **fast, cross-platform analysis** of code files, counting:
 ### Linux / macOS
 
 ```bash
-git clone https://github.com/YourUsername/cpp-cloc.git
+git clone https://github.com/journeycodesayush/cpp-cloc.git
 cd cpp-cloc
 make
 ./cloc_cpp <filename>
@@ -67,7 +67,7 @@ make
 ### Windows (via Command Prompt / PowerShell)
 
 ```powershell
-git clone https://github.com/YourUsername/cpp-cloc.git
+git clone https://github.com/journeycodesayush/cpp-cloc.git
 cd cpp-cloc
 mkdir build
 .\cloc_cpp.exe <filename>
@@ -223,7 +223,7 @@ cpp-cloc/
 1. Fork the repo
 
 ```bash
-git clone https://github.com/YourUsername/cpp-cloc.git
+git clone https://github.com/journeycodesayush/cpp-cloc.git
 ```
 
 2. Create a branch: `feat/new-language` or `fix/bug`
