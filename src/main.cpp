@@ -1,3 +1,12 @@
+// argparse.hpp
+// -----------------------------
+// This file is a header-only argument parser for C++.
+// Original source: https://github.com/p-ranav/argparse
+// License: MIT
+//
+// The file is included in CPP-CLOC to simplify setup.
+// Please refer to the original repository for updates or full documentation.
+
 #include <argparse/argparse.hpp>
 #include <iostream>
 #include <string>
