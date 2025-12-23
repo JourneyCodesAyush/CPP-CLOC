@@ -34,6 +34,14 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::PYTHON;
     }
+    else if (extension == ".js")
+    {
+        return detector::FileType::JAVASCRIPT;
+    }
+    else if (extension == ".ts")
+    {
+        return detector::FileType::TYPESCRIPT;
+    }
     else if (extension == ".java")
     {
         return detector::FileType::JAVA;
