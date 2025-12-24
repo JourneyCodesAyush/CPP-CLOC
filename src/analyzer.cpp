@@ -121,6 +121,103 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                 }
             }
         }
+        else if (syntax.single_line.empty())
+        {
+            while (std::getline(infile, line))
+            {
+                line = strip(line);
+
+                if (inside_multi_line_comment)
+                {
+                    if (line.empty())
+                    {
+                        statistic.blank_lines++;
+                    }
+                    else
+                    {
+                        statistic.lines_of_comment++;
+                        if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                        {
+                            statistic.lines_of_comment++;
+                            inside_multi_line_comment = false;
+                        }
+                        else if (line.find(syntax.multi_line_end) != std::string::npos)
+                        {
+                            size_t end_pos = line.find(syntax.multi_line_end);
+
+                            std::string after_comment = line.substr(end_pos + syntax.multi_line_end.length());
+                            if (strip(after_comment).empty())
+                            {
+                                statistic.lines_of_comment++;
+                            }
+                            else
+                            {
+                                statistic.lines_of_code++;
+                            }
+                        }
+                        inside_multi_line_comment = false;
+                    }
+                    continue;
+                }
+                else
+                {
+                    if (line.size() >= syntax.multi_line_start.length() and line.compare(0, syntax.multi_line_start.length(), syntax.multi_line_start) == 0)
+                    {
+                        size_t end_pos = line.find(syntax.multi_line_end);
+                        if (end_pos != std::string::npos)
+                        {
+                            std::string after_comment = line.substr(end_pos + syntax.multi_line_end.length());
+                            if (strip(after_comment).empty())
+                                statistic.lines_of_comment++;
+                            else
+                                statistic.lines_of_code++;
+                        }
+
+                        if (line.size() >= syntax.multi_line_end.length() and line.compare(line.size() - syntax.multi_line_end.length(), syntax.multi_line_end.length(), syntax.multi_line_end) == 0)
+                        {
+                            inside_multi_line_comment = false;
+                        }
+                        else
+                        {
+                            inside_multi_line_comment = true;
+                        }
+                    }
+                    else if (line.find(syntax.multi_line_start) != std::string::npos)
+                    {
+                        size_t start_pos = line.find(syntax.multi_line_start);
+                        size_t end_pos = line.find(syntax.multi_line_end, start_pos);
+
+                        // Code before /*
+                        if (start_pos > 0)
+                            // No comment counted as per CLOC's philosophy
+                            statistic.lines_of_code++;
+                        else
+                            statistic.lines_of_comment++;
+
+                        // set multiline mode
+                        // inside_multi_line_comment = (end_pos == std::string::npos);
+                        if (end_pos == std::string::npos)
+                        {
+                            inside_multi_line_comment = true;
+                            // Even if multiline comment does not end on same line, count as code and not comment
+                            // statistic.lines_of_comment++;
+                        }
+                        else
+                        {
+                            inside_multi_line_comment = false;
+                        }
+                    }
+                    else if (line.empty())
+                    {
+                        statistic.blank_lines++;
+                    }
+                    else
+                    {
+                        statistic.lines_of_code++;
+                    }
+                }
+            }
+        }
         else
         {
             while (std::getline(infile, line))
