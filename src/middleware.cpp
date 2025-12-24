@@ -67,6 +67,16 @@ void middleware::process_file(const std::vector<std::string> &files)
             analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::C, "Python");
             break;
         }
+        case detector::FileType::HTML:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::HTML, "HTML");
+            break;
+        }
+        case detector::FileType::MARKDOWN:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::HTML, "MarkDown");
+            break;
+        }
         case detector::FileType::JAVASCRIPT:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVASCRIPT, "JavaScript");
@@ -79,12 +89,12 @@ void middleware::process_file(const std::vector<std::string> &files)
         }
         case detector::FileType::BASH:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::BashPowerShellComments, detector::FileType::BASH, "Bash");
+            analyze_and_merge(statistics_map, filename, comment_syntax::BashYMLComments, detector::FileType::BASH, "Bash");
             break;
         }
         case detector::FileType::POWERSHELL:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::BashPowerShellComments, detector::FileType::POWERSHELL, "PowerShell");
+            analyze_and_merge(statistics_map, filename, comment_syntax::PowerShellComments, detector::FileType::POWERSHELL, "PowerShell");
             break;
         }
 
