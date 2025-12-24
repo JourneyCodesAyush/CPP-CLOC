@@ -21,6 +21,7 @@
   - [⚙️ Features](#️-features)
   - [📦 Dependencies](#-dependencies)
   - [⚠️ Known Limitations](#️-known-limitations)
+  - [🧭 Design Philosophy](#-design-philosophy)
   - [📁 Project Structure](#-project-structure)
   - [🧑‍💻 Development Guide](#-development-guide)
   - [🤝 Contributing](#-contributing)
@@ -184,6 +185,20 @@ Counted as **2 lines of code** and **3 lines of comment**
 
 - comment markers inside strings may be _miscounted_
 - Does not detect nested comment blocks
+
+---
+
+## 🧭 Design Philosophy
+
+- CPP-CLOC follows **single-pass text-based analysis**; it does not fully parse languages.
+- Some counting behaviors are **cloc-aligned quirks**, not bugs:
+  - Lines with code + comments are counted as code.
+  - Comment markers inside strings are treated as comments.
+  - Embedded languages are not recognized.
+  - Python docstrings are treated as comments.
+- Contributions should **enhance features or performance** without changing cloc’s counting philosophy.
+
+> See [PHILOSOPHY.md](PHILOSOPHY.md) for a detailed guide.
 
 ---
 
