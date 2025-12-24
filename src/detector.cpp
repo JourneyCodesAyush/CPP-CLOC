@@ -34,6 +34,14 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::PYTHON;
     }
+    else if (extension == ".html")
+    {
+        return detector::FileType::HTML;
+    }
+    else if (extension == ".md")
+    {
+        return detector::FileType::MARKDOWN;
+    }
     else if (extension == ".js")
     {
         return detector::FileType::JAVASCRIPT;

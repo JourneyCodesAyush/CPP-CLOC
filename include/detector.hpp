@@ -11,6 +11,8 @@ namespace detector
         C_CPP_HEADER,
         JAVA,
         PYTHON,
+        HTML,
+        MARKDOWN,
         JAVASCRIPT,
         TYPESCRIPT,
         BASH,
