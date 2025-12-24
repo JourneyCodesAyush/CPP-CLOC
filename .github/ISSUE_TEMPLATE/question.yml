@@ -1,0 +1,29 @@
+name: "Question / Help"
+description: Ask a question or request guidance on using CPP-CLOC
+labels: [question]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question or need help with **CPP-CLOC**?  
+        Ask your query here, and we'll do our best to assist you.  
+        If you need clarification on output, usage, or edge cases, provide details.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Question Summary
+      placeholder: "How do I analyze a TypeScript file with multiline comments?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      placeholder: |
+        What are you trying to do? What have you already tried?  
+        Include example input files, commands you ran, and observed output.  
+        Screenshots or excerpts from your files can help us respond faster.
+    validations:
+      required: true

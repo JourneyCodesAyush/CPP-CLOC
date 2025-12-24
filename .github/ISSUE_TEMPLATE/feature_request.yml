@@ -1,0 +1,58 @@
+name: "Feature Request"
+description: Suggest a new feature or improvement for CPP-CLOC
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea to improve **CPP-CLOC**?  
+        New language support, better statistics, or faster analysis?  
+        Please describe your proposal below.
+
+  - type: input
+    id: title
+    attributes:
+      label: Feature Summary
+      placeholder: "Add Rust language support"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: What should this feature do?
+      placeholder: |
+        Describe the feature, how it should work,
+        and why it improves CPP-CLOC analysis or usability.
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Use Case / Input File (optional)
+      placeholder: |
+        Provide an example of input code or usage demonstrating the feature.
+        Example:
+        fn main() {
+            println!("Hello, Rust!");
+        }
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional Context
+      placeholder: |
+        Any related issues, motivations, or reference features from other analyzers.
+
+  - type: checkboxes
+    id: feature_type
+    attributes:
+      label: Which part of CPP-CLOC does this affect?
+      options:
+        - label: Language support / Comment syntax
+        - label: Code / comment / blank line counting
+        - label: Performance / execution time
+        - label: Output formatting
+        - label: Tests / CI
+        - label: Other
