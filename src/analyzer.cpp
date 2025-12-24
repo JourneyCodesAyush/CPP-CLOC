@@ -86,7 +86,8 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
                         if (end_pos == std::string::npos)
                         {
                             inside_multi_line_comment = true;
-                            statistic.lines_of_comment++;
+                            // Even if multiline comment does not end on same line, count as code and not comment
+                            // statistic.lines_of_comment++;
                         }
                         else
                         {
