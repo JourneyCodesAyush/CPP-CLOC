@@ -23,8 +23,8 @@ void print::print_single(stats::Stats &stats)
 
 void print::print_result_map(std::map<detector::FileType, stats::Stats> &statistics, double duration_ms)
 {
-    std::cout << "\n\nC++ implementation of CLOC\n";
-    std::cout << "Total time: " << duration_ms << " seconds\n";
+    std::cout << "\nC++ implementation of CLOC\n";
+    std::cout << "github.com/JourneyCodesAyush/CPP-CLOC\tTotal time: " << duration_ms << " seconds\n";
     print_dashes();
     std::cout << "\n";
     // Header
