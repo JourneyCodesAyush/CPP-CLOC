@@ -42,6 +42,10 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::MARKDOWN;
     }
+    else if (extension == ".css")
+    {
+        return detector::FileType::CSS;
+    }
     else if (extension == ".js")
     {
         return detector::FileType::JAVASCRIPT;

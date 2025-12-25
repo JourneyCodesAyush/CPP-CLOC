@@ -13,6 +13,7 @@ namespace detector
         PYTHON,
         HTML,
         MARKDOWN,
+        CSS,
         JAVASCRIPT,
         TYPESCRIPT,
         BASH,
