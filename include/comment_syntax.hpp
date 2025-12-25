@@ -17,4 +17,5 @@ namespace comment_syntax
     const CommentSyntax BashYMLComments{false, "#", "", ""};
     const CommentSyntax PowerShellComments{false, "#", "<#", "#>"};
     const CommentSyntax HTMLMarkdownComments{false, "", "<!--", "-->"};
+    const CommentSyntax CssSyntax{true, "", "/*", "*/"};
 }
