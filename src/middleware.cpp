@@ -77,6 +77,11 @@ void middleware::process_file(const std::vector<std::string> &files)
             analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::HTML, "MarkDown");
             break;
         }
+        case detector::FileType::CSS:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::CssSyntax, detector::FileType::CSS, "CSS");
+            break;
+        }
         case detector::FileType::JAVASCRIPT:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVASCRIPT, "JavaScript");
