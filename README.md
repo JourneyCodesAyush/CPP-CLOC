@@ -37,6 +37,7 @@
 - C, C++, C/C++ headers
 - Java
 - Python
+- HTML, MarkDown, CSS
 - JavaScript / TypeScript
 - Bash / PowerShell / Batch
 - Unknown (Not analyzed)
@@ -99,10 +100,16 @@ Output includes:
 | C/C++      | `.c`, `.cpp`, `.h` | `//`, `/* */`  |
 | Java       | `.java`            | `//`, `/* */`  |
 | Python     | `.py`              | `#`, `""" """` |
+| HTML       | `.html`            | `<!-- -->`     |
+| MarkDown   | `.md`              | `<!-- -->`     |
+| CSS        | `.css`             | `/* */`        |
 | JS/TS      | `.js`, `.ts`       | `//`, `/* */`  |
 | Bash       | `.sh`              | `#`            |
 | PowerShell | `.ps1`             | `#`            |
 | Batch      | `.bat`             | `REM`          |
+
+> [!NOTE]
+> Only triple-double-quoted(""" """) strings are recognized for Python
 
 ---
 
@@ -161,7 +168,7 @@ SUM                        6      372           6           45            423
 
 ## ⚠️ Known Limitations
 
-- Multi-line comments **inside strings are not detected**
+- Multi-line comments **inside strings are intentionally treated as comments**
 
 ```c
 printf("/*");
@@ -171,20 +178,11 @@ for(size_t i = 0; i <= 5; i++){
 printf("*/");
 ```
 
-is seen as
+is counted as **2 lines of code** and **3 lines of comment**
 
-```cpp
-printf("/* xxxxx
-xxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxxxx
-xxxxxxxxx */");
-```
-
-Counted as **2 lines of code** and **3 lines of comment**
-
-- comment markers inside strings may be _miscounted_
-- Does not detect nested comment blocks
+- comment markers inside strings are counted as **comments**
+- Does not detect nested comment blocks by design
+- Only triple-double-quoted (""" """) strings are treated as comments in Python; single-quote docstrings (''') are not recognized.
 
 ---
 
@@ -195,8 +193,11 @@ Counted as **2 lines of code** and **3 lines of comment**
   - Lines with code + comments are counted as code.
   - Comment markers inside strings are treated as comments.
   - Embedded languages are not recognized.
-  - Python docstrings are treated as comments.
-- Contributions should **enhance features or performance** without changing cloc’s counting philosophy.
+  - Python docstrings are intentionally treated as comments.
+- Contributions may extend supported languages, improve performance, or refactor code, provided analyzer behavior and cloc-style counting semantics remain unchanged.
+
+> [!IMPORTANT]
+> cpp-cloc intentionally does not distinguish comment markers inside strings, docstrings, or other language constructs, because doing so would require partial parsing and violate its strictly text-based analysis model.
 
 > See [PHILOSOPHY.md](PHILOSOPHY.md) for a detailed guide.
 

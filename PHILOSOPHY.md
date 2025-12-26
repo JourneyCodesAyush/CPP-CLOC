@@ -21,7 +21,7 @@ This document explains the guiding principles of CPP-CLOC and how contributors s
 ## Core Goals
 
 - **Single-pass text-based analysis:**
-  Analyze files line-by-line using simple rules; avoid full parsing of the language.
+  Analyze files line-by-line using simple rules; avoid half/full parsing of the language.
 
 - **Consistency with cloc:**
   CPP-CLOC intentionally mirrors cloc’s quirks and counting rules.
@@ -58,11 +58,14 @@ CPP-CLOC follows **cloc’s behavior** closely. Some limitations are known and i
 - **Python docstrings:**
   Treated as comments by default, even if they contain executable code. A separate switch to treat docstrings as code is **out of scope** for CPP-CLOC.
 
+  > [!WARNING]
+  > ⚠️ Only triple-double-quoted strings (""" """) are recognized as comments in Python; single-quote docstrings (''') are not.
+
 - **Language definition files:**
   Must be plain ASCII text.
 
 - **Compiler pragmas:**
-  Lines like `#if / #endif` are counted as code, even if they block compilation.
+  Lines like `#if ... #endif` are counted as code, even if they block compilation.
 
 - **Path length limitations on Windows:**
   Very long file paths may fail; use WSL if needed.
@@ -74,6 +77,9 @@ CPP-CLOC follows **cloc’s behavior** closely. Some limitations are known and i
   XML comments inside CDATA blocks are counted as comments, not code.
 
 > These are **intentional behaviors** to preserve cloc’s counting philosophy. Issues arising from these cases may be **closed as “by design”**. CPP-CLOC prioritizes **single-pass simplicity and cloc compatibility** over perfect parsing.
+
+> [!IMPORTANT]
+> cpp-cloc intentionally does not distinguish comment markers inside strings, docstrings, or other language constructs, because doing so would require partial parsing and violate its strictly text-based analysis model.
 
 ---
 
