@@ -92,6 +92,11 @@ void middleware::process_file(const std::vector<std::string> &files)
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::TYPESCRIPT, "TypeScript");
             break;
         }
+        case detector::FileType::JSON:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JSON, "JSON");
+            break;
+        }
         case detector::FileType::BASH:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::BashYMLComments, detector::FileType::BASH, "Bash");
