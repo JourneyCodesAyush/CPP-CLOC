@@ -54,6 +54,10 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::TYPESCRIPT;
     }
+    else if (extension == ".json")
+    {
+        return detector::FileType::JSON;
+    }
     else if (extension == ".java")
     {
         return detector::FileType::JAVA;

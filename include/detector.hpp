@@ -16,6 +16,7 @@ namespace detector
         CSS,
         JAVASCRIPT,
         TYPESCRIPT,
+        JSON,
         BASH,
         POWERSHELL,
         BATCH,
