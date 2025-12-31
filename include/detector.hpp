@@ -6,6 +6,7 @@ namespace detector
 {
     enum class FileType
     {
+        ASSEMBLY,
         C,
         CPP,
         C_CPP_HEADER,

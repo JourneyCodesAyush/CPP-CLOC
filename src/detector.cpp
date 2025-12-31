@@ -18,6 +18,10 @@ detector::FileType detector::detect_file_type(const std::string &filename)
     {
         return detector::FileType::UNKNOWN;
     }
+    else if (extension == ".asm")
+    {
+        return detector::FileType::ASSEMBLY;
+    }
     else if (extension == ".c")
     {
         return detector::FileType::C;
