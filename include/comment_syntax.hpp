@@ -12,6 +12,7 @@ namespace comment_syntax
         std::string multi_line_end;
     };
 
+    const CommentSyntax AssemblyComments{false, ";", ""};
     const CommentSyntax CLikeComments{true, "//", "/*", "*/"};
     const CommentSyntax PythonComments{true, "#", "\"\"\"", "\"\"\""};
     const CommentSyntax BashYMLComments{false, "#", "", ""};
