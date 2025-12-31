@@ -40,6 +40,12 @@ void middleware::process_file(const std::vector<std::string> &files)
         detector::FileType file_type = detector::detect_file_type(filename);
         switch (file_type)
         {
+        case detector::FileType::ASSEMBLY:
+        {
+            analyze_and_merge(statistics_map, filename, comment_syntax::AssemblyComments, detector::FileType::ASSEMBLY, "Assembly");
+
+            break;
+        }
         case detector::FileType::C:
         {
             analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::C, "C");
