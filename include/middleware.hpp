@@ -2,10 +2,13 @@
 
 #include "stats.hpp"
 #include "detector.hpp"
+#include "result.hpp"
+
 #include <vector>
 #include <string>
+#include <map>
 
 namespace middleware
 {
-    void process_file(const std::vector<std::string> &files);
+    result::Result process_file(const std::vector<std::string> &files);
 }

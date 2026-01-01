@@ -6,6 +6,7 @@
 #include "middleware.hpp"
 #include "detector.hpp"
 #include "stats.hpp"
+#include "result.hpp"
 #include "print.hpp"
 #include "analyzer.hpp"
 #include "comment_syntax.hpp"
@@ -29,7 +30,7 @@ static void analyze_and_merge(std::map<detector::FileType, stats::Stats> &statis
     check_and_merge(statistics_map, new_stats, file_type);
 }
 
-void middleware::process_file(const std::vector<std::string> &files)
+result::Result middleware::process_file(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
 
@@ -125,9 +126,9 @@ void middleware::process_file(const std::vector<std::string> &files)
         }
     }
     auto end = std::chrono::high_resolution_clock::now();
-    auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start).count();
+    auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
-    double duration_seconds = duration_ms / 1000.0;
+    // double duration_seconds = duration_ms / 1000.0;
 
-    print::print_result_map(statistics_map, duration_seconds);
+    return result::Result{statistics_map, duration_ms};
 }
