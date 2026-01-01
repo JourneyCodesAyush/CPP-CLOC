@@ -10,6 +10,7 @@
 
 - [📚✨ CPP-CLOC - C++ Implementation of CLOC](#-cpp-cloc---c-implementation-of-cloc)
   - [📑 Table of Contents](#-table-of-contents)
+  - [Current Version](#current-version)
   - [🌍 Overview](#-overview)
   - [⚡ Quick Install](#-quick-install)
     - [Linux / macOS](#linux--macos)
@@ -27,6 +28,12 @@
   - [🤝 Contributing](#-contributing)
   - [LICENSE](#license)
   - [📬 Author](#-author)
+
+---
+
+## Current Version
+
+**v0.1.0** – Initial stable milestone. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
