@@ -4,13 +4,14 @@
 
 #include "print.hpp"
 #include "stats.hpp"
+#include "result.hpp"
 
 static void print_dashes()
 {
     std::cout << "------------------------------------------------------------------------------";
 }
 
-void print::print_single(stats::Stats &stats)
+static void print_single(const stats::Stats &stats)
 {
     std::cout << std::left << std::setw(20) << stats.file_type
               << std::right << std::setw(8) << stats.file_count
@@ -21,10 +22,10 @@ void print::print_single(stats::Stats &stats)
               << "\n";
 }
 
-void print::print_result_map(std::map<detector::FileType, stats::Stats> &statistics, double duration_ms)
+void print::print_result_map(const result::Result &res)
 {
     std::cout << "\nC++ implementation of CLOC\n";
-    std::cout << "github.com/JourneyCodesAyush/CPP-CLOC\tTotal time: " << duration_ms << " seconds\n";
+    std::cout << print::info.repo_link << "\t" << print::info.latest_tag << "\tTotal time: " << std::fixed << std::setprecision(4) << res.time_elapsed.count() / 1000.0 << " seconds\n";
     print_dashes();
     std::cout << "\n";
     // Header
@@ -39,7 +40,7 @@ void print::print_result_map(std::map<detector::FileType, stats::Stats> &statist
     stats::Stats total_stats;
     total_stats.file_type = "SUM"; // For the last row
 
-    for (auto &pair : statistics)
+    for (const auto &pair : res.statistics)
     {
         print_dashes();
         std::cout << "\n";
