@@ -20,5 +20,13 @@ namespace print
 
     inline constexpr MetaData info{"journeycodesayush", "cpp-cloc", "github.com/journeycodesayush/cpp-cloc", "v0.1.0"};
 
-    void print_result_map(const result::Result &res);
+    enum class OutputFormat
+    {
+        JSON,
+        XML,
+        CSV,
+        STDOUT
+    };
+
+    void print_result_map(const result::Result &res, const print::OutputFormat format = print::OutputFormat::JSON);
 }

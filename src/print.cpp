@@ -6,6 +6,9 @@
 #include "stats.hpp"
 #include "result.hpp"
 
+static void print_single_json(const stats::Stats &stat);
+static void print_json(const result::Result &res);
+
 static void print_dashes()
 {
     std::cout << "------------------------------------------------------------------------------";
@@ -22,7 +25,7 @@ static void print_single(const stats::Stats &stats)
               << "\n";
 }
 
-void print::print_result_map(const result::Result &res)
+static void print_stdout(const result::Result &res)
 {
     std::cout << "\nC++ implementation of CLOC\n";
     std::cout << print::info.repo_link << "\t" << print::info.latest_tag << "\tTotal time: " << std::fixed << std::setprecision(4) << res.time_elapsed.count() / 1000.0 << " seconds\n";
@@ -57,4 +60,70 @@ void print::print_result_map(const result::Result &res)
     print_single(total_stats);
     print_dashes();
     std::cout << "\n";
+}
+
+void print::print_result_map(const result::Result &res, const print::OutputFormat format)
+{
+    switch (format)
+    {
+    case print::OutputFormat::STDOUT:
+        print_stdout(res);
+        break;
+    case print::OutputFormat::JSON:
+        print_json(res);
+        break;
+    default:
+        break;
+    }
+}
+
+static void print_single_json(const stats::Stats &stat)
+{
+    std::cout
+        << "\"" << stat.file_type << "\" :{\n"
+        << "  \"nFiles\": " << stat.file_count << ",\n"
+        << "  \"blank\": " << stat.blank_lines << ",\n"
+        << "  \"comment\": " << stat.lines_of_comment << ",\n"
+        << "  \"code\": " << stat.lines_of_code << "\n"
+        << "}";
+}
+
+static void print_json(const result::Result &res)
+{
+    std::cout << "{";
+
+    // Header
+    std::cout << "\"header\" : {\n"
+              << "  \"cloc_url\"        : \"" << print::info.repo_link << "\",\n"
+              << "  \"cloc_version\"    : \"" << print::info.latest_tag << "\",\n"
+              << "  \"elapsed_seconds\" : "
+              << std::fixed << std::setprecision(6)
+              << res.time_elapsed.count() / 1000.0 << "\n"
+              << "},\n";
+
+    stats::Stats total_stats;
+    total_stats.file_type = "SUM";
+
+    bool first = true;
+    for (const auto &pair : res.statistics)
+    {
+        if (!first)
+        {
+            std::cout << ",\n";
+        }
+        first = false;
+
+        print_single_json(pair.second);
+
+        total_stats.lines_of_code += pair.second.lines_of_code;
+        total_stats.lines_of_comment += pair.second.lines_of_comment;
+        total_stats.blank_lines += pair.second.blank_lines;
+        total_stats.file_count += pair.second.file_count;
+    }
+
+    // SUM (always last)
+    std::cout << ",\n";
+    print_single_json(total_stats);
+
+    std::cout << "}";
 }
