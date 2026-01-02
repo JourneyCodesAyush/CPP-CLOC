@@ -9,6 +9,9 @@
 static void print_single_json(const stats::Stats &stat);
 static void print_json(const result::Result &res);
 
+static void print_single_csv(const stats::Stats &stat);
+static void print_csv(const result::Result &res);
+
 static void print_dashes()
 {
     std::cout << "------------------------------------------------------------------------------";
@@ -72,6 +75,9 @@ void print::print_result_map(const result::Result &res, const print::OutputForma
     case print::OutputFormat::JSON:
         print_json(res);
         break;
+    case print::OutputFormat::CSV:
+        print_csv(res);
+        break;
     default:
         break;
     }
@@ -126,4 +132,36 @@ static void print_json(const result::Result &res)
     print_single_json(total_stats);
 
     std::cout << "}";
+}
+
+static void print_single_csv(const stats::Stats &stat)
+{
+    std::cout << stat.file_count << ","
+              << stat.file_type << ","
+              << stat.blank_lines << ","
+              << stat.lines_of_comment << ","
+              << stat.lines_of_code << ""
+              << "\n";
+}
+static void print_csv(const result::Result &res)
+{
+    std::cout << "files,language,blank,comment,code, \"" << print::info.repo_link << " "
+              << print::info.latest_tag << " Elapsed seconds="
+              << std::fixed << std::setprecision(6)
+              << res.time_elapsed.count() / 1000.0 << "\""
+              << "\n";
+
+    stats::Stats total_stats;
+    total_stats.file_type = "SUM";
+
+    for (const auto &pair : res.statistics)
+    {
+        print_single_csv(pair.second);
+
+        total_stats.lines_of_code += pair.second.lines_of_code;
+        total_stats.lines_of_comment += pair.second.lines_of_comment;
+        total_stats.blank_lines += pair.second.blank_lines;
+        total_stats.file_count += pair.second.file_count;
+    }
+    print_single_csv(total_stats);
 }
