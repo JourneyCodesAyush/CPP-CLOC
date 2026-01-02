@@ -12,6 +12,9 @@ static void print_json(const result::Result &res);
 static void print_single_csv(const stats::Stats &stat);
 static void print_csv(const result::Result &res);
 
+static void print_single_xml(const stats::Stats &stat);
+static void print_xml(const result::Result &res);
+
 static void print_dashes()
 {
     std::cout << "------------------------------------------------------------------------------";
@@ -77,6 +80,9 @@ void print::print_result_map(const result::Result &res, const print::OutputForma
         break;
     case print::OutputFormat::CSV:
         print_csv(res);
+        break;
+    case print::OutputFormat::XML:
+        print_xml(res);
         break;
     default:
         break;
@@ -164,4 +170,45 @@ static void print_csv(const result::Result &res)
         total_stats.file_count += pair.second.file_count;
     }
     print_single_csv(total_stats);
+}
+
+static void print_single_xml(const stats::Stats &stat)
+{
+    std::cout << "  <language name=\"" << stat.file_type
+              << "\" files_count=\"" << stat.file_count
+              << "\" blank=\"" << stat.blank_lines
+              << "\" comment=\"" << stat.lines_of_comment
+              << "\" code=\"" << stat.lines_of_code << "\" />\n";
+}
+
+static void print_xml(const result::Result &res)
+{
+    std::cout << "<?xml version=\"1.0\" encoding=\"UTF-8\"?><results>\n"
+              << "<header>\n"
+              << "  <cpp_cloc_url>" << print::info.repo_link << "</cpp_cloc_url>\n"
+              << "  <cpp_cloc_tag>" << print::info.latest_tag << "</cpp_cloc_tag>\n"
+              << "  <elapsed_seconds>" << std::fixed << std::setprecision(11)
+              << res.time_elapsed.count() / 1000.0 << "</elapsed_seconds>\n"
+              << "</header>\n";
+    std::cout << "<languages>\n";
+    stats::Stats total_stats;
+    total_stats.file_type = "SUM";
+
+    for (const auto &pair : res.statistics)
+    {
+        print_single_xml(pair.second);
+
+        total_stats.lines_of_code += pair.second.lines_of_code;
+        total_stats.lines_of_comment += pair.second.lines_of_comment;
+        total_stats.blank_lines += pair.second.blank_lines;
+        total_stats.file_count += pair.second.file_count;
+    }
+
+    std::cout << "  <total sum_files=\"" << total_stats.file_count
+              << "\" blank=\"" << total_stats.blank_lines
+              << "\" comment=\"" << total_stats.lines_of_comment
+              << "\" code=\"" << total_stats.lines_of_code << "\" />\n";
+
+    std::cout << "</languages>\n"
+              << "</results>\n";
 }
