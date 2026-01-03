@@ -8,6 +8,24 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.2.0 - Output Formats and CLI Improvements
+
+### Added
+
+- JSON, CSV, and XML output formats
+- Mutually exclusive CLI flags: --json, --csv, --xml
+
+### Changed
+
+- Middleware now returns a Result struct instead of printing directly
+- Main function selects output format and delegates rendering to print module
+
+### Notes
+
+- Analyzer behavior and cloc-style counting semantics remain unchanged
+
+---
+
 ## v0.1.0 - Initial Stable Milestone
 
 ### Added

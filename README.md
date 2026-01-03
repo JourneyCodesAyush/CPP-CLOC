@@ -33,7 +33,7 @@
 
 ## Current Version
 
-**v0.1.0** – Initial stable milestone. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.2.0** – Output formats and CLI improvements. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -89,8 +89,18 @@ mkdir build
 Run **cpp-cloc** on a directory or single file:
 
 ```bash
-cpp-cloc src/
+cloc_cpp src/
 ```
+
+Optional output format flags (mutually exclusive):
+
+```bash
+cloc_cpp src/ --json
+cloc_cpp src/ --csv
+cloc_cpp src/ --xml
+```
+
+> If no flag is provided, output is printed in the default table format.
 
 Output includes:
 
