@@ -71,7 +71,7 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
 
         case detector::FileType::PYTHON:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::C, "Python");
+            analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::PYTHON, "Python");
             break;
         }
         case detector::FileType::HTML:
