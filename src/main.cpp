@@ -11,6 +11,7 @@
 #include <iostream>
 #include <string>
 #include <exception>
+#include <fstream>
 
 #include "list_files.hpp"
 #include "middleware.hpp"
@@ -24,6 +25,10 @@ int main(int argc, char const *argv[])
 
     // program.format_usage("Usage: cpp_cloc path [--help] [--version] [[--json]|[--csv]|[--xml]] ");
     program.add_description("Count physical lines of C++ source code in files or directories, recursively. Outputs results to console, JSON, CSV, or XML.");
+
+    program.add_argument("--output")
+        .default_value("")
+        .help("Write output to a file instead of STDOUT");
 
     auto &group = program.add_mutually_exclusive_group();
 
@@ -53,11 +58,40 @@ int main(int argc, char const *argv[])
             output = print::OutputFormat::XML;
         }
         std::string string_output = print::print_result_map(res, output);
-        std::cout << string_output;
+
+        const std::string output_file_name = program.get<std::string>("--output");
+        if (!output_file_name.empty())
+        {
+            std::ofstream output_file(output_file_name);
+            if (!output_file.is_open())
+            {
+                std::cerr << "Cannot open file: " << output_file_name << "\n";
+                return 1;
+            }
+
+            output_file << string_output;
+            if (output_file.fail())
+            {
+                std::cerr << "Failed to write to " << output_file_name << "\n";
+                return 1;
+            }
+            std::cout << "Wrote " << output_file_name << "\n";
+            output_file.flush();
+            output_file.close();
+        }
+        else
+        {
+            std::cout << string_output;
+        }
     }
     catch (const std::exception &e)
     {
-        std::cerr << e.what();
+        std::cerr << "Error: " << e.what() << "\n";
+        return 1;
+    }
+    catch (...)
+    {
+        std::cerr << "Unknown error occurred.\n";
         return 1;
     }
 
