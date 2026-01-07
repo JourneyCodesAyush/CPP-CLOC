@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <string>
 #include <string_view>
 
 #include "stats.hpp"
@@ -28,5 +29,5 @@ namespace print
         STDOUT
     };
 
-    void print_result_map(const result::Result &res, const print::OutputFormat format = print::OutputFormat::JSON);
+    std::string print_result_map(const result::Result &res, const print::OutputFormat format = print::OutputFormat::JSON);
 }
