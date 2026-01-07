@@ -52,7 +52,8 @@ int main(int argc, char const *argv[])
         {
             output = print::OutputFormat::XML;
         }
-        print::print_result_map(res, output);
+        std::string string_output = print::print_result_map(res, output);
+        std::cout << string_output;
     }
     catch (const std::exception &e)
     {
