@@ -33,7 +33,7 @@
 
 ## Current Version
 
-**v0.2.0** – Output formats and CLI improvements. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.3.0** – Output redirection and new flag `--output` to save results to file. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -98,6 +98,12 @@ Optional output format flags (mutually exclusive):
 cloc_cpp src/ --json
 cloc_cpp src/ --csv
 cloc_cpp src/ --xml
+
+# Scan a directory and save results to a file
+cpp-cloc ./src --output=results.txt
+
+# Select output format and save to a file
+cpp-cloc ./src --json --output=results.json
 ```
 
 > If no flag is provided, output is printed in the default table format.

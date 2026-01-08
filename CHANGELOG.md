@@ -8,6 +8,30 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.3.0 - Output Redirection & Printing Refactor
+
+### Added
+
+- `--output` CLI flag to redirect output to a file (users can now save cpp-cloc output instead of printing to console).
+- `print_result_map` now returns formatted output as a `std::string`.
+- `main.cpp` updated to consume string output from `print_result_map`.
+
+### Changed
+
+- Printing logic refactored: output is collected in `std::stringstream` and returned as string instead of direct console printing.
+- CommentSyntax variables marked `inline` for cleaner header usage.
+
+### Fixed
+
+- Corrected Python file type aggregation in `middleware` (previously miscounted some Python files).
+
+### Notes
+
+- Future improvement: consider streaming output directly to the file to handle very large directories more efficiently.
+- All changes preserve existing cloc-style behavior, including line counting quirks.
+
+---
+
 ## v0.2.0 - Output Formats and CLI Improvements
 
 ### Added
