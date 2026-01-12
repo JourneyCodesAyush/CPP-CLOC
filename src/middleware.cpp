@@ -33,6 +33,8 @@ static void analyze_and_merge(std::map<detector::FileType, stats::Stats> &statis
 result::Result middleware::process_file(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
+    int total_files = files.size();
+    int ignored_files = 0;
 
     auto start = std::chrono::high_resolution_clock::now();
 
@@ -120,8 +122,10 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
             break;
 
         case detector::FileType::UNKNOWN:
+            ignored_files++;
             break;
         default:
+            ignored_files++;
             break;
         }
     }
@@ -130,5 +134,5 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
 
     // double duration_seconds = duration_ms / 1000.0;
 
-    return result::Result{statistics_map, duration_ms};
+    return result::Result{statistics_map, duration_ms, total_files, ignored_files};
 }
