@@ -34,6 +34,9 @@ static void print_single(const stats::Stats &stats, std::stringstream &output)
 
 static void print_stdout(const result::Result &res, std::stringstream &output)
 {
+    output << "       " << res.total_files << " total files.\n";
+    output << "       " << (res.total_files - res.ignored_files) << " files analyzed.\n";
+    output << "       " << res.ignored_files << " files ignored.\n";
     output << "\nC++ implementation of CLOC\n";
     output << print::info.repo_link << "\t" << print::info.latest_tag << "\tTotal time: " << std::fixed << std::setprecision(4) << res.time_elapsed.count() / 1000.0 << " seconds\n";
     print_dashes(output);
@@ -110,11 +113,14 @@ static void print_json(const result::Result &res, std::stringstream &output)
 
     // Header
     output << "\"header\" : {\n"
-           << "  \"cloc_url\"        : \"" << print::info.repo_link << "\",\n"
-           << "  \"cloc_version\"    : \"" << print::info.latest_tag << "\",\n"
+           << "  \"cpp_cloc_url\"        : \"" << print::info.repo_link << "\",\n"
+           << "  \"cpp_cloc_tag\"    : \"" << print::info.latest_tag << "\",\n"
            << "  \"elapsed_seconds\" : "
            << std::fixed << std::setprecision(6)
-           << res.time_elapsed.count() / 1000.0 << "\n"
+           << res.time_elapsed.count() / 1000.0 << ",\n"
+           << "  \"files_per_second\": "
+           << std::fixed << std::setprecision(13) << (res.total_files - res.ignored_files) / (res.time_elapsed.count() / 1000.0)
+           << "\n"
            << "},\n";
 
     stats::Stats total_stats;
@@ -158,7 +164,9 @@ static void print_csv(const result::Result &res, std::stringstream &output)
     output << "files,language,blank,comment,code, \"" << print::info.repo_link << " "
            << print::info.latest_tag << " Elapsed seconds="
            << std::fixed << std::setprecision(6)
-           << res.time_elapsed.count() / 1000.0 << "\""
+           << res.time_elapsed.count() / 1000.0 << " ("
+           << std::fixed << std::setprecision(2) << (res.total_files - res.ignored_files) / (res.time_elapsed.count() / 1000.0)
+           << " files/s)\""
            << "\n";
 
     stats::Stats total_stats;
@@ -193,6 +201,9 @@ static void print_xml(const result::Result &res, std::stringstream &output)
            << "  <cpp_cloc_tag>" << print::info.latest_tag << "</cpp_cloc_tag>\n"
            << "  <elapsed_seconds>" << std::fixed << std::setprecision(11)
            << res.time_elapsed.count() / 1000.0 << "</elapsed_seconds>\n"
+           << "  <n_files>" << (res.total_files - res.ignored_files) << "</n_files>\n"
+           << "  <files_per_second>"
+           << std::fixed << std::setprecision(13) << (res.total_files - res.ignored_files) / (res.time_elapsed.count() / 1000.0) << "</files_per_second>\n"
            << "</header>\n";
     output << "<languages>\n";
     stats::Stats total_stats;
