@@ -8,6 +8,30 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.4.0 - Output Metadata & STDOUT Enhancements
+
+### Added
+
+- Metadata in outputs:
+
+  - **STDOUT:** `total_files`, `analyzed_files`, and `ignored_files`.
+  - **JSON & XML:** `n_files` field.
+
+- CSV, JSON, and XML outputs remain strictly machine-readable.
+- Minor design note: single-line Bash scripts or one-liner loops may count as multiple lines if line breaks exist; this aligns with cloc-style text-based counting.
+
+### Changed
+
+- STDOUT table now includes total/ignored files information for better user insight.
+- JSON and XML headers updated to use `cpp_cloc_url` and `cpp_cloc_tag` instead of `cloc_url` / `cloc_version`.
+
+### Notes
+
+- Analyzer behavior remains cloc-aligned; line counting quirks are intentional.
+- Prepares CPP-CLOC for v0.4.0 release with improved metadata tracking.
+
+---
+
 ## v0.3.0 - Output Redirection & Printing Refactor
 
 ### Added

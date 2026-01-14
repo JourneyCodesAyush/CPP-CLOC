@@ -33,7 +33,11 @@
 
 ## Current Version
 
-**v0.3.0** – Output redirection and new flag `--output` to save results to file. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.4.0** – Added metadata about analyzed files, total files, and ignored files. See [CHANGELOG](./CHANGELOG.md) for details.
+
+- Add `total_files`, `analyzed_files`, and `ignored_files` in STDOUT.
+- Add `n_files` in JSON and XML outputs.
+- CSV, JSON, and XML outputs remain machine-readable only.
 
 ---
 
