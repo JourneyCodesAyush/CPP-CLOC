@@ -62,7 +62,7 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         }
         case detector::FileType::C_CPP_HEADER:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::CPP, "C/C++ Header");
+            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::C_CPP_HEADER, "C/C++ Header");
             break;
         }
         case detector::FileType::JAVA:
@@ -83,7 +83,7 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         }
         case detector::FileType::MARKDOWN:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::HTML, "MarkDown");
+            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::MARKDOWN, "MarkDown");
             break;
         }
         case detector::FileType::CSS:
