@@ -8,12 +8,26 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.4.1 - File Type Classification Fix
+
+### Fixed
+
+- Corrected `detector::FileType` passed to the analyzer:
+  - C/C++ header files now use `C_CPP_HEADER`.
+  - Markdown files are now correctly classified as `MARKDOWN`.
+
+### Notes
+
+- No changes to analyzer logic or cloc-style counting semantics.
+- This is a patch release correcting internal classification only.
+
+---
+
 ## v0.4.0 - Output Metadata & STDOUT Enhancements
 
 ### Added
 
 - Metadata in outputs:
-
   - **STDOUT:** `total_files`, `analyzed_files`, and `ignored_files`.
   - **JSON & XML:** `n_files` field.
 

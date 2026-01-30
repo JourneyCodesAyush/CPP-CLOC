@@ -33,11 +33,7 @@
 
 ## Current Version
 
-**v0.4.0** – Added metadata about analyzed files, total files, and ignored files. See [CHANGELOG](./CHANGELOG.md) for details.
-
-- Add `total_files`, `analyzed_files`, and `ignored_files` in STDOUT.
-- Add `n_files` in JSON and XML outputs.
-- CSV, JSON, and XML outputs remain machine-readable only.
+**v0.4.1** – Fixed incorrect file type classification for C/C++ headers and Markdown files. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
