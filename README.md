@@ -33,7 +33,7 @@
 
 ## Current Version
 
-**v0.4.1** – Fixed incorrect file type classification for C/C++ headers and Markdown files. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.5.0** – Introduced formal analyzer test suite and stabilized state-machine behavior. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -168,6 +168,7 @@ SUM                        6      372           6           45            423
 
 ## ⚙️ Features
 
+- ✅ Catch2-based analyzer test suite with invariant coverage
 - ✅ Supports **multiple programming languages**
 - ✅ Counts code, comments, blank lines, and total lines
 - ✅ Handles multi-line comments (/ ... /) and single-line comments
@@ -239,6 +240,7 @@ cpp-cloc/
 │   ├── print.cpp
 │   └── main.cpp
 │
+├── tests/     # Catch2 based analyzer tests
 ├── Makefile     # Build configuration
 ├── README.md
 └── LICENSE

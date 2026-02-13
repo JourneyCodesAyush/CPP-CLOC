@@ -8,6 +8,28 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.5.0 - Analyzer Test Suite & Behavioral Stabilization
+
+### Added
+
+- Introduced Catch2-based test suite.
+- Added invariant tests for analyzer core behavior:
+  - Single-line comments
+  - Inline comments counted as code
+  - Multi-line comment blocks
+  - Same-line multi-line comments with surrounding code
+  - Unterminated multi-line comments at EOF
+  - Blank line handling
+  - Mixed-state scenarios
+
+### Notes
+
+- No changes to analyzer runtime behavior.
+- The analyzer state machine is now formally verified and considered stable.
+- Future updates will focus on infrastructure and usability rather than semantic counting changes.
+
+---
+
 ## v0.4.1 - File Type Classification Fix
 
 ### Fixed
