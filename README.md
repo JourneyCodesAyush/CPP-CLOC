@@ -20,7 +20,10 @@
     - [Directory Analysis](#directory-analysis)
     - [Single File Analysis](#single-file-analysis)
   - [⚙️ Features](#️-features)
+  - [Tests](#tests)
   - [📦 Dependencies](#-dependencies)
+    - [Build Dependencies](#build-dependencies)
+    - [Test Dependencies](#test-dependencies)
   - [⚠️ Known Limitations](#️-known-limitations)
   - [🧭 Design Philosophy](#-design-philosophy)
   - [📁 Project Structure](#-project-structure)
@@ -100,10 +103,10 @@ cloc_cpp src/ --csv
 cloc_cpp src/ --xml
 
 # Scan a directory and save results to a file
-cpp-cloc ./src --output=results.txt
+cloc_cpp ./src --output=results.txt
 
 # Select output format and save to a file
-cpp-cloc ./src --json --output=results.json
+cloc_cpp ./src --json --output=results.json
 ```
 
 > If no flag is provided, output is printed in the default table format.
@@ -141,7 +144,7 @@ Output includes:
 ### Directory Analysis
 
 ```bash
-./cpp_cloc ./src
+./cloc_cpp ./src
 ```
 
 Output example:
@@ -161,7 +164,7 @@ SUM                        6      372           6           45            423
 ### Single File Analysis
 
 ```bash
-./cpp_cloc ./src/main.cpp
+./cloc_cpp ./src/main.cpp
 ```
 
 ---
@@ -178,13 +181,31 @@ SUM                        6      372           6           45            423
 
 ---
 
+## Tests
+
+Tests for the `analyzer`, the heart of [CPP-CLOC](https://github.com/JourneyCodesAyush/CPP-CLOC), are available in `tests/test_analyzer.cpp`
+
+Run tests with:
+
+```bash
+make test
+```
+
+---
+
 ## 📦 Dependencies
 
-**CPP-CLOC** includes the following external dependency:
+### Build Dependencies
 
-| Library        | License | Notes                                                                                                                          |
-| -------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `argparse.hpp` | MIT     | Header-only C++17 library for command-line argument parsing, included in `include/argparse/`. Original authors retain license. |
+| Library        | License | Notes                                                                                         |
+| -------------- | ------- | --------------------------------------------------------------------------------------------- |
+| `argparse.hpp` | MIT     | Header-only C++17 library, included in `include/argparse/`, required to build the main binary |
+
+### Test Dependencies
+
+| Library  | License | Notes                                                                                     |
+| -------- | ------- | ----------------------------------------------------------------------------------------- |
+| `Catch2` | MIT     | Header-only, version 2.13.10, vendored in `include/catch2/`, used for analyzer tests only |
 
 > ⚠️ All external code is included as-is and is subject to its original license. CPP-CLOC itself is MIT-licensed.
 
