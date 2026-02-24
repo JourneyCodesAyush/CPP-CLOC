@@ -24,15 +24,15 @@ int main(int argc, char const *argv[])
     program.add_argument("path").help("File or directory to analyze");
 
     // program.format_usage("Usage: cpp_cloc path [--help] [--version] [[--json]|[--csv]|[--xml]] ");
-    program.add_description("Count physical lines of C++ source code in files or directories, recursively. Outputs results to console, JSON, CSV, or XML.");
+    program.add_description("Count physical lines of source code in files or directories, recursively. Outputs results to console, JSON, CSV, or XML.");
 
     program.add_argument("--output")
-        .default_value("")
+        .default_value("STDOUT")
         .help("Write output to a file instead of STDOUT");
 
     auto &group = program.add_mutually_exclusive_group();
 
-    group.add_argument("--json").help("Write the results as JavaScript Object Notation (JSON) formatted output.").flag();
+    group.add_argument("--json").help("Write the results as JavaScript Object Notation (JSON) formatted output").flag();
     group.add_argument("--csv").help("Write the results as comma separated values").flag();
     group.add_argument("--xml").help("Write the results in XML").flag();
 
@@ -60,7 +60,7 @@ int main(int argc, char const *argv[])
         std::string string_output = print::print_result_map(res, output);
 
         const std::string output_file_name = program.get<std::string>("--output");
-        if (!output_file_name.empty())
+        if (output_file_name != "STDOUT")
         {
             std::ofstream output_file(output_file_name);
             if (!output_file.is_open())
