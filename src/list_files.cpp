@@ -2,12 +2,15 @@
 #include <string>
 #include <filesystem>
 #include <exception>
+#include <algorithm>
+#include <unordered_set>
 
 #include "list_files.hpp"
 
-std::vector<std::string> list_files(const std::string &path)
+namespace fs = std::filesystem;
+
+std::vector<std::string> list_files(const std::string &path, const std::unordered_set<std::string> &exclude_dir)
 {
-    namespace fs = std::filesystem;
 
     std::vector<std::string> files;
 
@@ -15,11 +18,21 @@ std::vector<std::string> list_files(const std::string &path)
     {
         try
         {
-            for (const auto &entry : fs::recursive_directory_iterator(path))
+            for (auto entry = fs::recursive_directory_iterator(path);
+                 entry != fs::recursive_directory_iterator();
+                 ++entry)
             {
-                if (entry.is_regular_file())
+                if (entry->is_regular_file())
                 {
-                    files.push_back(entry.path().string());
+                    files.push_back(entry->path().string());
+                }
+                else if (entry->is_directory())
+                {
+                    if (exclude_dir.count(entry->path().filename().string()) > 0)
+                    {
+                        entry.disable_recursion_pending();
+                        continue;
+                    }
                 }
             }
         }
