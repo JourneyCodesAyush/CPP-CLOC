@@ -1,0 +1,38 @@
+name: CPP-CLOC Run Tests
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Restore cached build artifacts if available
+      - name: Cache build
+        uses: actions/cache@v3
+        with:
+          path: build
+          key: ${{ runner.os }}-cpp-cloc-${{ hashFiles('src/**/*.cpp', 'include/**/*.hpp') }}
+          restore-keys: |
+            ${{ runner.os }}-cpp-cloc-
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake g++
+
+      # Build and run tests
+      - name: Build & Run Tests
+        run: |
+          make test
