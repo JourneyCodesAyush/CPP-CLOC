@@ -12,10 +12,48 @@
 #include <string>
 #include <exception>
 #include <fstream>
+#include <unordered_set>
 
 #include "list_files.hpp"
 #include "middleware.hpp"
 #include "print.hpp"
+#include "string_operation_strip.hpp"
+
+static std::unordered_set<std::string> parse_exclude_dirs(const std::string &str)
+{
+    auto forward_slash = str.find("/");
+    auto back_slash = str.find("\\");
+    if (forward_slash != std::string::npos || back_slash != std::string::npos)
+    {
+        throw std::invalid_argument(
+            "--exclude-dir accepts directory names only (no '/' or '\\').\n"
+            "Example: --exclude-dir=build,test");
+    }
+
+    std::unordered_set<std::string> result = {
+        ".git",
+        ".svn",
+        ".hg",
+        ".bzr",
+        ".cvs",
+        ".snapshot",
+        "node_modules"};
+
+    if (str.empty())
+    {
+        return result;
+    }
+    size_t start = 0;
+    size_t end = str.find(',');
+    while (end != std::string::npos)
+    {
+        result.insert(strip(str.substr(start, end - start)));
+        start = end + 1;
+        end = str.find(',', start);
+    }
+    result.insert(strip(str.substr(start)));
+    return result;
+}
 
 int main(int argc, char const *argv[])
 {
@@ -25,6 +63,12 @@ int main(int argc, char const *argv[])
 
     // program.format_usage("Usage: cpp_cloc path [--help] [--version] [[--json]|[--csv]|[--xml]] ");
     program.add_description("Count physical lines of source code in files or directories, recursively. Outputs results to console, JSON, CSV, or XML.");
+
+    program.add_argument("--exclude-dir")
+        .default_value("")
+        .help("Exclude one or more directory names from recursive scanning\n"
+              "Provide a comma-separated list (e.g. --exclude-dir=build,test)\n"
+              "Matching is based on directory name only (not full path)");
 
     program.add_argument("--output")
         .default_value("STDOUT")
@@ -41,7 +85,10 @@ int main(int argc, char const *argv[])
         program.parse_args(argc, argv);
 
         std::string path = program.get<std::string>("path");
-        auto files = list_files(path);
+        const std::string exclude_dir_string = program.get<std::string>("--exclude-dir");
+        auto exclude_dir_set = parse_exclude_dirs(exclude_dir_string);
+
+        auto files = list_files(path, exclude_dir_set);
         auto res = middleware::process_file(files);
         auto output = print::OutputFormat::STDOUT;
 
