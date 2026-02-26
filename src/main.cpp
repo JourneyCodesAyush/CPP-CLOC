@@ -113,14 +113,14 @@ int main(int argc, char const *argv[])
             if (!output_file.is_open())
             {
                 std::cerr << "Cannot open file: " << output_file_name << "\n";
-                return 1;
+                exit(EXIT_FAILURE);
             }
 
             output_file << string_output;
             if (output_file.fail())
             {
                 std::cerr << "Failed to write to " << output_file_name << "\n";
-                return 1;
+                exit(EXIT_FAILURE);
             }
             std::cout << "Wrote " << output_file_name << "\n";
             output_file.flush();
@@ -134,12 +134,12 @@ int main(int argc, char const *argv[])
     catch (const std::exception &e)
     {
         std::cerr << "Error: " << e.what() << "\n";
-        return 1;
+        exit(EXIT_FAILURE);
     }
     catch (...)
     {
         std::cerr << "Unknown error occurred.\n";
-        return 1;
+        exit(EXIT_FAILURE);
     }
 
     return 0;
