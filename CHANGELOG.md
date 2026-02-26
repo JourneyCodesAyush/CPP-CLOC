@@ -8,6 +8,25 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.6.0 – `--exclude-dir`
+
+### Added
+
+- Introduced `--exclude-dir` CLI flag to exclude directories by name during recursive file discovery.
+- Default exclusions include common VCS and dependency directories (`.git`, `.svn`, `.hg`, `.bzr`, `.cvs`, `.snapshot`, `node_modules`).
+- Input validation rejects directory names containing `/` or `\` to enforce **name-only matching**.
+
+### Changed / Refactored
+
+- Replaced all `return 1` exits in `main.cpp` with `exit(EXIT_FAILURE)` for **consistent and explicit error handling**.
+- Catch2 test build updated to include `string_operation_strip.cpp` to ensure compilation and linking succeed.
+
+### Notes
+
+- No changes to analyzer behavior or cloc-style counting semantics.
+
+---
+
 ## v0.5.0 - Analyzer Test Suite & Behavioral Stabilization
 
 ### Added

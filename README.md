@@ -36,7 +36,7 @@
 
 ## Current Version
 
-**v0.5.0** – Introduced formal analyzer test suite and stabilized state-machine behavior. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.6.0** – Added `--exclude-dir` CLI flag to exclude directories by name. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -107,6 +107,9 @@ cloc_cpp ./src --output=results.txt
 
 # Select output format and save to a file
 cloc_cpp ./src --json --output=results.json
+
+# Exclude directories by name
+cloc_cpp ./src --exclude-dir=build,test
 ```
 
 > If no flag is provided, output is printed in the default table format.
