@@ -41,7 +41,7 @@ $(CATCH_OBJ): tests/catch_main.cpp $(INC_DIR)/catch2/catch.hpp
 	$(CC) $(CFLAGS) -I$(INC_DIR) -c tests/catch_main.cpp -o $(CATCH_OBJ)
 
 # Test sources
-TEST_SRC = src/analyzer.cpp
+TEST_SRC = src/analyzer.cpp src/string_operation_strip.cpp
 TESTS = $(filter-out tests/catch_main.cpp, $(wildcard tests/*.cpp))
 
 test: $(CATCH_OBJ)
