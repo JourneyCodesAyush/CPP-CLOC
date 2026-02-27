@@ -71,7 +71,7 @@ int main(int argc, char const *argv[])
               "Matching is based on directory name only (not full path)");
 
     program.add_argument("--output")
-        .default_value("STDOUT")
+        .default_value("")
         .help("Write output to a file instead of STDOUT");
 
     auto &group = program.add_mutually_exclusive_group();
