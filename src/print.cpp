@@ -18,17 +18,17 @@ static void print_xml(const result::Result &res, std::stringstream &output);
 
 static void print_dashes(std::stringstream &output)
 {
-    output << "------------------------------------------------------------------------------";
+    output << "--------------------------------------------------------------------------------------";
 }
 
 static void print_single(const stats::Stats &stats, std::stringstream &output)
 {
     output << std::left << std::setw(20) << stats.file_type
            << std::right << std::setw(8) << stats.file_count
-           << std::setw(9) << stats.lines_of_code
-           << std::setw(12) << stats.lines_of_comment
+           << std::setw(15) << stats.lines_of_code
+           << std::setw(13) << stats.lines_of_comment
            << std::setw(13) << stats.blank_lines
-           << std::setw(15) << stats.total()
+           << std::setw(17) << stats.total()
            << "\n";
 }
 
@@ -44,10 +44,10 @@ static void print_stdout(const result::Result &res, std::stringstream &output)
     // Header
     output << std::left << std::setw(20) << "Language"
            << std::right << std::setw(8) << "Files"
-           << std::setw(9) << "Code"
-           << std::setw(12) << "Comments"
+           << std::setw(15) << "Code"
+           << std::setw(13) << "Comments"
            << std::setw(13) << "Blank"
-           << std::setw(15) << "Total"
+           << std::setw(17) << "Total"
            << "\n";
 
     stats::Stats total_stats;
@@ -113,7 +113,7 @@ static void print_json(const result::Result &res, std::stringstream &output)
 
     // Header
     output << "\"header\" : {\n"
-           << "  \"cpp_cloc_url\"        : \"" << print::info.repo_link << "\",\n"
+           << "  \"cpp_cloc_url\"    : \"" << print::info.repo_link << "\",\n"
            << "  \"cpp_cloc_tag\"    : \"" << print::info.latest_tag << "\",\n"
            << "  \"elapsed_seconds\" : "
            << std::fixed << std::setprecision(6)
