@@ -19,7 +19,7 @@ namespace print
         std::string_view latest_tag;
     };
 
-    inline constexpr MetaData info{"journeycodesayush", "cpp-cloc", "github.com/journeycodesayush/cpp-cloc", "v0.6.0"};
+    inline constexpr MetaData info{"journeycodesayush", "cpp-cloc", "github.com/journeycodesayush/cpp-cloc", "v0.6.1"};
 
     enum class OutputFormat
     {

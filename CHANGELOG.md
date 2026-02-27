@@ -8,6 +8,20 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.6.1 – Output Formatting Stabilization
+
+### Fixed
+
+- Widened STDOUT table columns to prevent overflow on large repositories.
+- Normalized JSON header spacing for consistent formatting.
+- Removed sentinel `"STDOUT"` default for `--output`; empty value now correctly represents standard output.
+
+### Notes
+
+- No changes to analyzer behavior or cloc-style counting semantics.
+
+---
+
 ## v0.6.0 – `--exclude-dir`
 
 ### Added
