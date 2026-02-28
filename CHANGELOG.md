@@ -8,6 +8,14 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.6.2 – Output File Handling Fix
+
+### Fixed
+
+- Prevent attempting to open an empty output filename when `--output` is not specified. Ensures output defaults to STDOUT without errors.
+
+---
+
 ## v0.6.1 – Output Formatting Stabilization
 
 ### Fixed

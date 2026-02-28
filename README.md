@@ -36,7 +36,7 @@
 
 ## Current Version
 
-**v0.6.1** – Output formatting stabilization and CLI output handling refinement. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.6.2** – Fixed CLI output handling when `--output` is empty. Output now defaults to STDOUT without errors. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
