@@ -1,14 +1,34 @@
 # 📚✨ CPP-CLOC - C++ Implementation of CLOC
 
+<p align="center">
+  <img src="https://img.shields.io/badge/status-maintenance%20mode-FFA500?style=for-the-badge&logo=&logoColor=white" alt="Maintenance Mode">
+</p>
+
 ![C++](https://img.shields.io/badge/C%2B%2B-17-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-lightgrey)
 
 ---
 
+## ⚠️Maintenance Mode:
+
+**CPP-CLOC has now shifted from active development to maintenance mode.**
+
+This project taught me more about **C++ than any tutorial ever could**. The original goals were:
+
+1. Re-implement `cloc` in a **performant, statically typed language** (the Python prototype didn’t cut it for performance).
+2. Learn how to structure and build a **serious C++ project** from scratch.
+
+Both goals have been largely achieved. While CPP-CLOC is not “feature-complete” in the absolute sense, it is **functionally solid for its intended purpose**, and further polishing or adding new features would likely become an endless process. It’s now time to let the project rest.
+
+> ⚡ Bug fixes and minor stability updates may still happen, but **no new features are planned**.
+
+---
+
 ## 📑 Table of Contents
 
 - [📚✨ CPP-CLOC - C++ Implementation of CLOC](#-cpp-cloc---c-implementation-of-cloc)
+  - [⚠️Maintenance Mode:](#️maintenance-mode)
   - [📑 Table of Contents](#-table-of-contents)
   - [Current Version](#current-version)
   - [🌍 Overview](#-overview)
