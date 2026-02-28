@@ -107,7 +107,7 @@ int main(int argc, char const *argv[])
         std::string string_output = print::print_result_map(res, output);
 
         const std::string output_file_name = program.get<std::string>("--output");
-        if (output_file_name != "STDOUT")
+        if (!output_file_name.empty())
         {
             std::ofstream output_file(output_file_name);
             if (!output_file.is_open())
