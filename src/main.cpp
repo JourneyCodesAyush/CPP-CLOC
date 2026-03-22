@@ -57,6 +57,10 @@ static std::unordered_set<std::string> parse_exclude_dirs(const std::string &str
 
 int main(int argc, char const *argv[])
 {
+    // Disable sync with C stdio for slightly faster C++ stream I/O.
+    // No measurable impact for file-heavy workloads, but safe here.
+    std::ios::sync_with_stdio(false);
+
     argparse::ArgumentParser program("cpp_cloc", print::info.latest_tag.data());
 
     program.add_argument("path").help("File or directory to analyze");
