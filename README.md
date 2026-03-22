@@ -10,7 +10,7 @@
 
 ---
 
-## ⚠️Maintenance Mode:
+## ⚠️ Maintenance Mode:
 
 **CPP-CLOC has now shifted from active development to maintenance mode.**
 
@@ -28,13 +28,16 @@ Both goals have been largely achieved. While CPP-CLOC is not “feature-complete
 ## 📑 Table of Contents
 
 - [📚✨ CPP-CLOC - C++ Implementation of CLOC](#-cpp-cloc---c-implementation-of-cloc)
-  - [⚠️Maintenance Mode:](#️maintenance-mode)
+  - [⚠️ Maintenance Mode:](#️-maintenance-mode)
   - [📑 Table of Contents](#-table-of-contents)
   - [Current Version](#current-version)
   - [🌍 Overview](#-overview)
   - [⚡ Quick Install](#-quick-install)
     - [Linux / macOS](#linux--macos)
     - [Windows (via Command Prompt / PowerShell)](#windows-via-command-prompt--powershell)
+  - [🛠️ Build Modes](#️-build-modes)
+    - [Debug Build (default)](#debug-build-default)
+    - [Release Build (optimized with -O3)](#release-build-optimized-with--o3)
   - [💻 Usage](#-usage)
   - [📝 Examples](#-examples)
     - [Directory Analysis](#directory-analysis)
@@ -56,7 +59,7 @@ Both goals have been largely achieved. While CPP-CLOC is not “feature-complete
 
 ## Current Version
 
-**v0.6.2** – Fixed CLI output handling when `--output` is empty. Output now defaults to STDOUT without errors. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.6.3** – Added release build mode with `-O3` compiler optimization via Makefile. Debug build remains default. See [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -93,6 +96,7 @@ It provides **fast, cross-platform analysis** of code files, counting:
 git clone https://github.com/journeycodesayush/cpp-cloc.git
 cd cpp-cloc
 make
+make RELEASE=1   # (optional) build optimized binary
 ./cloc_cpp <filename>
 ```
 
@@ -102,12 +106,37 @@ make
 git clone https://github.com/journeycodesayush/cpp-cloc.git
 cd cpp-cloc
 mkdir build
+make RELEASE=1   # (optional) build optimized binary
 .\cloc_cpp.exe <filename>
 ```
+
+## 🛠️ Build Modes
+
+CPP-CLOC supports two build modes via Makefile:
+
+### Debug Build (default)
+
+Includes debug symbols and no optimization:
+
+```bash
+make
+```
+
+### Release Build (optimized with -O3)
+
+Enables compiler optimizations for improved performance:
+
+```bash
+make RELEASE=1
+```
+
+> ⚡ Use release builds for faster execution on large codebases.
 
 ---
 
 ## 💻 Usage
+
+> For better performance on large projects, build with `make RELEASE=1` to enable compiler optimizations.
 
 Run **cpp-cloc** on a directory or single file:
 

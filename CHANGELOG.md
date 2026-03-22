@@ -8,6 +8,27 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## v0.6.3 – Build Optimization & Performance Improvements
+
+### Added
+
+- Introduced **release build mode** via Makefile using `-O3` optimization:
+  - Enabled with: `make RELEASE=1`
+- Improved runtime performance by disabling synchronization between C++ streams and C stdio:
+  - Added `std::ios::sync_with_stdio(false)` in `main()`
+
+### Changed
+
+- Default build remains debug (`-g`) for development and testing
+- Release builds are now recommended for analyzing large codebases
+
+### Notes
+
+- No changes to analyzer behavior or cloc-style counting semantics
+- These changes are purely performance-oriented and do not affect output correctness
+
+---
+
 ## v0.6.2 – Output File Handling Fix
 
 ### Fixed
