@@ -202,15 +202,19 @@ Output includes:
 Output example:
 
 ```
+       7 total files.
+       7 files analyzed.
+       0 files ignored.
+
 C++ implementation of CLOC
-Total time: 0.091 seconds
-------------------------------------------------------------------------------
-Language               Files     Code    Comments        Blank          Total
-------------------------------------------------------------------------------
-C++                        6      372           6           45            423
-------------------------------------------------------------------------------
-SUM                        6      372           6           45            423
-------------------------------------------------------------------------------
+github.com/journeycodesayush/cpp-cloc   v0.6.3  Total time: 0.0000 seconds
+--------------------------------------------------------------------------------------
+Language               Files           Code     Comments        Blank            Total
+--------------------------------------------------------------------------------------
+C++                        7            675           28           97              800
+--------------------------------------------------------------------------------------
+SUM                        7            675           28           97              800
+--------------------------------------------------------------------------------------
 ```
 
 ### Single File Analysis
@@ -226,7 +230,7 @@ SUM                        6      372           6           45            423
 - ✅ Catch2-based analyzer test suite with invariant coverage
 - ✅ Supports **multiple programming languages**
 - ✅ Counts code, comments, blank lines, and total lines
-- ✅ Handles multi-line comments (/ ... /) and single-line comments
+- ✅ Handles multi-line comments (/* ... */) and single-line comments
 - ✅ Cross-platform (Windows, Linux, macOS)
 - ✅ Lightweight and fast
 - ⚠️ Minimal dependency: requires `argparse.hpp` (included in `include/argparse/`)
