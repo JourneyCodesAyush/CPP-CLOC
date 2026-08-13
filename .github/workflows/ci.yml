@@ -36,3 +36,49 @@ jobs:
       - name: Build & Run Tests
         run: |
           make test
+
+  valgrind:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # Install dependencies
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential valgrind
+
+      # Build debug
+      - name: Build debug
+        run: |
+          make
+
+      # Run Valgrind - Debug
+      - name: Run Valgrind - Debug
+        run: |
+          valgrind \
+            --leak-check=full \
+            --show-leak-kinds=definite,indirect \
+            --errors-for-leak-kinds=definite,indirect \
+            --error-exitcode=1 \
+            ./cloc_cpp .
+
+      # Build release
+      - name: Build release
+        run: |
+          make clean
+          make RELEASE=1
+
+      # Run Valgrind - Release
+      - name: Run Valgrind - Release
+        run: |
+          valgrind \
+            --leak-check=full \
+            --show-leak-kinds=definite,indirect \
+            --errors-for-leak-kinds=definite,indirect \
+            --error-exitcode=1 \
+            ./cloc_cpp .
+
