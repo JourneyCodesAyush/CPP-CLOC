@@ -7,6 +7,7 @@
 ![C++](https://img.shields.io/badge/C%2B%2B-17-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![PRs Welcome](https://img.shields.io/badge/PRs-welcome-lightgrey)
+![CI](https://github.com/JourneyCodesAyush/cpp-cloc/actions/workflows/ci.yml/badge.svg)
 
 ---
 
