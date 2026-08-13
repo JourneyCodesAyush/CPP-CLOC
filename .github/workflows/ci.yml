@@ -15,11 +15,11 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Restore cached build artifacts if available
       - name: Cache build
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: build
           key: ${{ runner.os }}-cpp-cloc-${{ hashFiles('src/**/*.cpp', 'include/**/*.hpp') }}
@@ -43,7 +43,7 @@ jobs:
     steps:
       # Checkout the repository
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # Install dependencies
       - name: Install dependencies
