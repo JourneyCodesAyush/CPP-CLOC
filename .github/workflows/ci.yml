@@ -1,4 +1,4 @@
-name: CPP-CLOC Run Tests
+name: CI
 
 on:
   push:
