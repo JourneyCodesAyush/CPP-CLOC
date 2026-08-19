@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = g++ 
-CFLAGS = -Wall -g -std=c++17
+CFLAGS = -Wall -g -std=c++17 -pthread
 RELEASE_FLAGS = -O3
 
 # Default build = debug
@@ -8,7 +8,7 @@ BUILD_FLAGS = $(CFLAGS)
 
 # If RELEASE=1 → use optimized flags
 ifeq ($(RELEASE),1)
-    BUILD_FLAGS = -Wall -std=c++17 $(RELEASE_FLAGS)
+    BUILD_FLAGS = -Wall -std=c++17 -pthread $(RELEASE_FLAGS)
 endif
 
 # Source and header directories
