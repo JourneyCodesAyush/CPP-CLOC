@@ -36,6 +36,35 @@ static stats::Stats analyze_and_merge(const std::string &filename, const comment
     return new_stats;
 }
 
+static std::vector<std::vector<std::string>> split_into_chunks(const std::vector<std::string> &files, size_t chunks)
+{
+    if (chunks == 0)
+        return {files};
+
+    const int number_of_files = files.size();
+
+    if (number_of_files == 0)
+        return {};
+
+    const int chunk_size = number_of_files / chunks;
+
+    std::vector<std::vector<std::string>> file_chunks;
+
+    for (size_t i = 0; i < chunks; i++)
+    {
+        int start = i * chunk_size;
+
+        int end;
+        if (i == chunks - 1)
+            end = number_of_files;
+        else
+            end = start + chunk_size;
+
+        file_chunks.push_back(std::vector<std::string>(files.begin() + start, files.begin() + end));
+    }
+    return file_chunks;
+}
+
 static ChunkResult process_singles(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
