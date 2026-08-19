@@ -187,6 +187,14 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
 
     auto start = std::chrono::high_resolution_clock::now();
 
+    if (files.empty())
+    {
+        auto end = std::chrono::high_resolution_clock::now();
+        auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+        return result::Result{statistics_map, duration_ms, 0, 0};
+    }
+
     ChunkResult chunk_result = process_singles(files);
 
     statistics_map = chunk_result.stats;
