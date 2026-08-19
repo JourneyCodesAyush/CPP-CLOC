@@ -11,6 +11,12 @@
 #include "analyzer.hpp"
 #include "comment_syntax.hpp"
 
+struct ChunkResult
+{
+    std::map<detector::FileType, stats::Stats> stats;
+    int ignored;
+};
+
 static void check_and_merge(std::map<detector::FileType, stats::Stats> &statistics_map, stats::Stats &new_stats, const detector::FileType &file_type)
 {
     if (statistics_map.count(file_type))
@@ -30,13 +36,10 @@ static stats::Stats analyze_and_merge(const std::string &filename, const comment
     return new_stats;
 }
 
-result::Result middleware::process_file(const std::vector<std::string> &files)
+static ChunkResult process_singles(const std::vector<std::string> &files)
 {
     std::map<detector::FileType, stats::Stats> statistics_map;
-    int total_files = files.size();
     int ignored_files = 0;
-
-    auto start = std::chrono::high_resolution_clock::now();
 
     for (const std::string &filename : files)
     {
@@ -108,7 +111,7 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         }
         case detector::FileType::TYPESCRIPT:
         {
-            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments,"TypeScript");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "TypeScript");
             check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
@@ -120,7 +123,7 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         }
         case detector::FileType::BASH:
         {
-            auto new_stat = analyze_and_merge(filename, comment_syntax::BashYMLComments,  "Bash");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::BashYMLComments, "Bash");
             check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
@@ -143,6 +146,23 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
             break;
         }
     }
+
+    return ChunkResult{statistics_map, ignored_files};
+}
+
+result::Result middleware::process_file(const std::vector<std::string> &files)
+{
+    std::map<detector::FileType, stats::Stats> statistics_map;
+    int total_files = files.size();
+    int ignored_files = 0;
+
+    auto start = std::chrono::high_resolution_clock::now();
+
+    ChunkResult chunk_result = process_singles(files);
+
+    statistics_map = chunk_result.stats;
+    ignored_files = chunk_result.ignored;
+
     auto end = std::chrono::high_resolution_clock::now();
     auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
 
