@@ -1,7 +1,10 @@
+#include <algorithm>
 #include <vector>
 #include <chrono>
 #include <map>
 #include <string>
+#include <thread>
+#include <future>
 
 #include "middleware.hpp"
 #include "detector.hpp"
@@ -195,10 +198,34 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         return result::Result{statistics_map, duration_ms, 0, 0};
     }
 
-    ChunkResult chunk_result = process_singles(files);
+    size_t thread_count = std::thread::hardware_concurrency();
 
-    statistics_map = chunk_result.stats;
-    ignored_files = chunk_result.ignored;
+    if (thread_count == 0)
+        thread_count = 1;
+
+    thread_count = std::min(thread_count, files.size());
+
+    auto chunks = split_into_chunks(files, thread_count);
+
+    std::vector<std::future<ChunkResult>> futures;
+
+    for (const auto &chunk : chunks)
+    {
+        futures.push_back(std::async(
+            std::launch::async,
+            process_singles,
+            chunk));
+    }
+
+    for (auto &future : futures)
+    {
+        ChunkResult chunk_result = future.get();
+        ignored_files += chunk_result.ignored;
+        for (auto &[file_type, file_stats] : chunk_result.stats)
+        {
+            check_and_merge(statistics_map, file_stats, file_type);
+        }
+    }
 
     auto end = std::chrono::high_resolution_clock::now();
     auto duration_ms = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
