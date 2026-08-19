@@ -23,11 +23,11 @@ static void check_and_merge(std::map<detector::FileType, stats::Stats> &statisti
     }
 }
 
-static void analyze_and_merge(std::map<detector::FileType, stats::Stats> &statistics_map, const std::string &filename, const comment_syntax::CommentSyntax &syntax, const detector::FileType &file_type, const std::string &file_extension)
+static stats::Stats analyze_and_merge(const std::string &filename, const comment_syntax::CommentSyntax &syntax, const std::string &file_extension)
 {
     stats::Stats new_stats = analyzer::analyze_files(filename, syntax);
     new_stats.file_type = file_extension;
-    check_and_merge(statistics_map, new_stats, file_type);
+    return new_stats;
 }
 
 result::Result middleware::process_file(const std::vector<std::string> &files)
@@ -45,75 +45,89 @@ result::Result middleware::process_file(const std::vector<std::string> &files)
         {
         case detector::FileType::ASSEMBLY:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::AssemblyComments, detector::FileType::ASSEMBLY, "Assembly");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::AssemblyComments, "Assembly");
+            check_and_merge(statistics_map, new_stat, file_type);
 
             break;
         }
         case detector::FileType::C:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::C, "C");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "C");
+            check_and_merge(statistics_map, new_stat, file_type);
 
             break;
         }
         case detector::FileType::CPP:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::CPP, "C++");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "C++");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::C_CPP_HEADER:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::C_CPP_HEADER, "C/C++ Header");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "C/C++ Header");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::JAVA:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVA, "Java");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "Java");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
 
         case detector::FileType::PYTHON:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::PythonComments, detector::FileType::PYTHON, "Python");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::PythonComments, "Python");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::HTML:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::HTML, "HTML");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::HTMLMarkdownComments, "HTML");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::MARKDOWN:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::HTMLMarkdownComments, detector::FileType::MARKDOWN, "MarkDown");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::HTMLMarkdownComments, "MarkDown");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::CSS:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CssSyntax, detector::FileType::CSS, "CSS");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CssSyntax, "CSS");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::JAVASCRIPT:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JAVASCRIPT, "JavaScript");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "JavaScript");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::TYPESCRIPT:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::TYPESCRIPT, "TypeScript");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments,"TypeScript");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::JSON:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::CLikeComments, detector::FileType::JSON, "JSON");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::CLikeComments, "JSON");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::BASH:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::BashYMLComments, detector::FileType::BASH, "Bash");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::BashYMLComments,  "Bash");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
         case detector::FileType::POWERSHELL:
         {
-            analyze_and_merge(statistics_map, filename, comment_syntax::PowerShellComments, detector::FileType::POWERSHELL, "PowerShell");
+            auto new_stat = analyze_and_merge(filename, comment_syntax::PowerShellComments, "PowerShell");
+            check_and_merge(statistics_map, new_stat, file_type);
             break;
         }
 
