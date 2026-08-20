@@ -60,7 +60,8 @@ Both goals have been largely achieved. While CPP-CLOC is not “feature-complete
 
 ## Current Version
 
-**v0.6.3** – Added release build mode with `-O3` compiler optimization via Makefile. Debug build remains default. See [CHANGELOG](./CHANGELOG.md) for details.
+**v0.7.0** – Added parallel file processing (multi-threaded via `std::async`), automatically enabled for larger codebases. See
+[CHANGELOG](./CHANGELOG.md) for details.
 
 ---
 
@@ -138,6 +139,11 @@ make RELEASE=1
 ## 💻 Usage
 
 > For better performance on large projects, build with `make RELEASE=1` to enable compiler optimizations.
+
+> ⚡ For large codebases (200+ files), cloc_cpp automatically analyzes
+> files in parallel across available CPU cores. Smaller projects run
+> sequentially — this is intentional, see
+> [`benchmarks/`](./benchmarks/README.md) for why.
 
 Run **cpp-cloc** on a directory or single file:
 
@@ -234,6 +240,7 @@ SUM                        7            675           28           97           
 - ✅ Handles multi-line comments (/* ... */) and single-line comments
 - ✅ Cross-platform (Windows, Linux, macOS)
 - ✅ Lightweight and fast
+- ✅ Multi-threaded analysis for large codebases (see [`benchmarks/`](./benchmarks/README.md) for reproducible numbers)
 - ⚠️ Minimal dependency: requires `argparse.hpp` (included in `include/argparse/`)
 
 ---

@@ -8,6 +8,31 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## 0.7.0
+
+### Added
+
+- Parallel file processing: files are split into chunks and analyzed
+  concurrently via `std::async`, one worker per chunk, sized to
+  `std::thread::hardware_concurrency()`.
+- `PARALLEL_THRESHOLD` guard (200 files): below this, cpp-cloc runs
+  sequentially, since thread-spawn overhead outweighs any gain at
+  small scale. See [`benchmarks/README.md`](./benchmarks/README.md) for measured numbers and
+  methodology.
+- `benchmarks/` directory with reproducible benchmark scripts
+  (`generate_test_data.py`, `run_benchmark.py`).
+
+### Changed
+
+- Build now links `-pthread` (required for `std::thread`/`std::async`
+  on Linux/macOS via g++).
+
+### Fixed
+
+- N/A
+
+---
+
 ## v0.6.3 – Build Optimization & Performance Improvements
 
 ### Added
