@@ -60,6 +60,8 @@ int main(int argc, char const *argv[])
     // Disable sync with C stdio for slightly faster C++ stream I/O.
     // No measurable impact for file-heavy workloads, but safe here.
     std::ios::sync_with_stdio(false);
+    std::cin.tie(nullptr);
+    std::cout.tie(nullptr);
 
     argparse::ArgumentParser program("cpp_cloc", print::info.latest_tag.data());
 
