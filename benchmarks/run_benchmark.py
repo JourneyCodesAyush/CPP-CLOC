@@ -1,9 +1,12 @@
 import subprocess
 import time
 import statistics
+import platform
+
+EXECUTABLE = r".\cloc_cpp.exe" if platform.system() == "Windows" else r"./cloc_cpp"
 
 COMMAND = [
-    r".\cloc_cpp.exe",
+    EXECUTABLE,
     "benchmark_data",
 ]
 
