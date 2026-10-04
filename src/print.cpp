@@ -18,7 +18,7 @@ static void print_xml(const result::Result &res, std::stringstream &output);
 
 static void print_dashes(std::stringstream &output)
 {
-    output << "--------------------------------------------------------------------------------------";
+    output << "——————————————————————————————————————————————————————————————————————————————————————";
 }
 
 static void print_single(const stats::Stats &stats, std::stringstream &output)
