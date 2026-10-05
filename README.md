@@ -346,6 +346,11 @@ cpp-cloc/
 
 ## 🤝 Contributing
 
+> [!NOTE]
+> CPP-CLOC is currently in maintenance mode.
+> Contributions are welcome for bug fixes, compatibility improvements, documentation, tests, and minor stability or performance improvements.
+> New features and significant changes are not currently planned and may not be accepted.
+
 1. Fork the repo
 
 ```bash
@@ -364,11 +369,12 @@ git switch -c feat/new-language
 Follow **Angular Commit Message Convention**:
 
 ```text
-feat(analyzer): add support for new language
-fix(stats): correct blank line counting
-docs(readme): update usage section
+fix(analyzer): correct blank line counting
+fix(detector): handle edge case in language detection
+docs(readme): clarify usage instructions
+test(analyzer): add multiline comment coverage
 chore(build): update Makefile
-refactor(analyzer): improve multiline comment detection
+refactor(analyzer): simplify comment handling
 ```
 
 ---
