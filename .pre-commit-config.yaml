@@ -13,4 +13,4 @@ repos:
         types_or:
           - c
           - c++
-
+        exclude: ^vendor/
