@@ -1,5 +1,5 @@
 # Compiler and flags
-CC = g++ 
+CC = g++
 CFLAGS = -Wall -g -std=c++17 -pthread
 RELEASE_FLAGS = -O3
 
@@ -58,8 +58,12 @@ TEST_SRC = src/analyzer.cpp src/string_operation_strip.cpp
 TESTS = $(filter-out tests/catch_main.cpp, $(wildcard tests/*.cpp))
 
 test: $(CATCH_OBJ)
-	$(CC) $(BUILD_FLAGS) $(INCLUDES) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o run_tests
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o $(RUNTESTS)
+ifeq ($(OS),Windows_NT)
+	cmd.exe /d /c ".\$(RUNTESTS)"
+else
 	$(RUNTESTS)
+endif
 
 # Clean build files
 clean:
