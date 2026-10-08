@@ -1,14 +1,13 @@
 #pragma once
 
-#include "stats.hpp"
 #include "detector.hpp"
 #include "result.hpp"
+#include "stats.hpp"
 
-#include <vector>
-#include <string>
 #include <map>
+#include <string>
+#include <vector>
 
-namespace middleware
-{
-    result::Result process_file(const std::vector<std::string> &files);
+namespace middleware {
+result::Result process_file(const std::vector<std::string>& files);
 }

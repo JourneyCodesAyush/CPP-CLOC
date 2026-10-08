@@ -2,4 +2,4 @@
 
 #include <string>
 
-std::string strip(const std::string &s);
+std::string strip(const std::string& s);

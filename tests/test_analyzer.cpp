@@ -1,13 +1,12 @@
-#include "catch2/catch.hpp"
-
 #include "analyzer.hpp"
-#include "stats.hpp"
+#include "catch2/catch.hpp"
 #include "comment_syntax.hpp"
-#include <fstream>
-#include <filesystem>
+#include "stats.hpp"
 
-TEST_CASE("Single-line comment is counted as comment", "[cpp-cloc]")
-{
+#include <filesystem>
+#include <fstream>
+
+TEST_CASE("Single-line comment is counted as comment", "[cpp-cloc]") {
     const std::string filename = "single_line_comment_is_comment.cpp";
 
     std::ofstream(filename) << R"(// This is a comment)";
@@ -23,8 +22,7 @@ TEST_CASE("Single-line comment is counted as comment", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Line counted as comment", "[cpp-cloc]")
-{
+TEST_CASE("Line counted as comment", "[cpp-cloc]") {
     const std::string filename = "line_count_as_code.cpp";
 
     std::ofstream(filename) << R"(// int x = 5;)";
@@ -40,8 +38,7 @@ TEST_CASE("Line counted as comment", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Blank line", "[cpp-cloc]")
-{
+TEST_CASE("Blank line", "[cpp-cloc]") {
     const std::string filename = "blank_line.cpp";
 
     std::ofstream(filename) << R"(
@@ -58,8 +55,7 @@ TEST_CASE("Blank line", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Multi line comments", "[cpp-cloc]")
-{
+TEST_CASE("Multi line comments", "[cpp-cloc]") {
     const std::string filename = "multi_line_comments.cpp";
 
     std::ofstream(filename) << R"(/*
@@ -77,8 +73,7 @@ TEST_CASE("Multi line comments", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Line counted as code", "[cpp-cloc]")
-{
+TEST_CASE("Line counted as code", "[cpp-cloc]") {
     const std::string filename = "line_counts_as_code.cpp";
 
     std::ofstream(filename) << R"(int x = 5;)";
@@ -94,8 +89,7 @@ TEST_CASE("Line counted as code", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Inline comments as code", "[cpp-cloc]")
-{
+TEST_CASE("Inline comments as code", "[cpp-cloc]") {
     const std::string filename = "inline_comments_as_code.cpp";
 
     std::ofstream(filename) << R"(int x = 5; // this is an inline comment)";
@@ -111,8 +105,7 @@ TEST_CASE("Inline comments as code", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Multi line comment starts and ends on same line with code after it", "[cpp-cloc]")
-{
+TEST_CASE("Multi line comment starts and ends on same line with code after it", "[cpp-cloc]") {
     const std::string filename = "multi_line_comment_code_same_line.cpp";
 
     std::ofstream(filename) << R"(/* comment */int x = 5;)";
@@ -128,8 +121,7 @@ TEST_CASE("Multi line comment starts and ends on same line with code after it", 
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Multi line comment starts and ends on same line with code before it", "[cpp-cloc]")
-{
+TEST_CASE("Multi line comment starts and ends on same line with code before it", "[cpp-cloc]") {
     const std::string filename = "multi_line_comment_code_same_line.cpp";
 
     std::ofstream(filename) << R"(int x = 5;/* comment */)";
@@ -145,8 +137,7 @@ TEST_CASE("Multi line comment starts and ends on same line with code before it",
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Mixed lines", "[cpp-cloc]")
-{
+TEST_CASE("Mixed lines", "[cpp-cloc]") {
     const std::string filename = "mixed_line.cpp";
 
     std::ofstream(filename) << R"(// comment
@@ -168,8 +159,7 @@ int y=6; // inline
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Multiple blank lines", "[cpp-cloc]")
-{
+TEST_CASE("Multiple blank lines", "[cpp-cloc]") {
     const std::string filename = "multiple_blank_lines.cpp";
 
     std::ofstream(filename) << "\n\n\n";
@@ -185,8 +175,7 @@ TEST_CASE("Multiple blank lines", "[cpp-cloc]")
     std::filesystem::remove(filename);
 }
 
-TEST_CASE("Unterminated multi line", "[cpp-cloc]")
-{
+TEST_CASE("Unterminated multi line", "[cpp-cloc]") {
     const std::string filename = "unterminated_multi_line.cpp";
 
     std::ofstream(filename) << R"(/* start

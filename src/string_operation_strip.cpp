@@ -1,7 +1,6 @@
 #include "string_operation_strip.hpp"
-    
-std::string strip(const std::string &s)
-{
+
+std::string strip(const std::string& s) {
     size_t start = s.find_first_not_of(" \t\r\n");
     if (start == std::string::npos)
         return "";

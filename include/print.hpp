@@ -1,33 +1,27 @@
 #pragma once
-#include <vector>
+#include "detector.hpp"
+#include "result.hpp"
+#include "stats.hpp"
+
 #include <iostream>
 #include <map>
 #include <string>
 #include <string_view>
+#include <vector>
 
-#include "stats.hpp"
-#include "detector.hpp"
-#include "result.hpp"
+namespace print {
+struct MetaData {
+    std::string_view author;
+    std::string_view repo_name;
+    std::string_view repo_link;
+    std::string_view latest_tag;
+};
 
-namespace print
-{
-    struct MetaData
-    {
-        std::string_view author;
-        std::string_view repo_name;
-        std::string_view repo_link;
-        std::string_view latest_tag;
-    };
+inline constexpr MetaData info{"journeycodesayush", "cpp-cloc",
+                               "github.com/journeycodesayush/cpp-cloc", "v0.7.0"};
 
-    inline constexpr MetaData info{"journeycodesayush", "cpp-cloc", "github.com/journeycodesayush/cpp-cloc", "v0.7.0"};
+enum class OutputFormat { JSON, XML, CSV, STDOUT };
 
-    enum class OutputFormat
-    {
-        JSON,
-        XML,
-        CSV,
-        STDOUT
-    };
-
-    std::string print_result_map(const result::Result &res, const print::OutputFormat format = print::OutputFormat::JSON);
-}
+std::string print_result_map(const result::Result& res,
+                             const print::OutputFormat format = print::OutputFormat::JSON);
+} // namespace print

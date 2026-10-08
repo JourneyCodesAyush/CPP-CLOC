@@ -1,17 +1,14 @@
-#include <stdio.h>
 #include <stdbool.h>
+#include <stdio.h>
 #include <stdlib.h>
 
-bool isAtEnd(FILE *fp)
-{
+bool isAtEnd(FILE* fp) {
     return feof(fp);
 }
 
-char peek(FILE *fp)
-{
+char peek(FILE* fp) {
     long pos = ftell(fp);
-    if (isAtEnd(fp))
-    {
+    if (isAtEnd(fp)) {
         return '\0';
     }
     char buffer;
@@ -20,11 +17,9 @@ char peek(FILE *fp)
     return buffer;
 }
 
-char peekNext(FILE *fp)
-{
+char peekNext(FILE* fp) {
     long pos = ftell(fp);
-    if (isAtEnd(fp))
-    {
+    if (isAtEnd(fp)) {
         return '\0';
     }
     char buffer;
@@ -34,13 +29,11 @@ char peekNext(FILE *fp)
     return buffer;
 }
 
-void c_cloc(const char *filename)
-{
-    FILE *fp;
+void c_cloc(const char* filename) {
+    FILE* fp;
     fp = fopen(filename, "r");
 
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Could not open file: %s\n", filename);
     }
 
@@ -49,20 +42,16 @@ void c_cloc(const char *filename)
     int blank_lines = 0;
     printf("Opened the file...\n");
     char c;
-    while (!isAtEnd(fp))
-    {
+    while (!isAtEnd(fp)) {
         c = fgetc(fp);
         printf("%c", c);
-        if (c == '/' && peek(fp) == '/')
-        {
+        if (c == '/' && peek(fp) == '/') {
             ++lines_of_comment;
             // break;
 
-            while (fgetc(fp) != '\n')
-            {
+            while (fgetc(fp) != '\n') {
                 // Do nothing
-                if (isAtEnd(fp))
-                {
+                if (isAtEnd(fp)) {
                     break;
                 }
                 c = fgetc(fp);
@@ -98,8 +87,7 @@ void c_cloc(const char *filename)
         //     fgetc(fp);
         //     // break;
         // }
-        else if (c == '/' && (peek(fp) != '*' || peek(fp) != '/'))
-        {
+        else if (c == '/' && (peek(fp) != '*' || peek(fp) != '/')) {
             ++lines_of_code;
             // TODO: Count number of lines of code
         }
@@ -107,24 +95,19 @@ void c_cloc(const char *filename)
 
     fseek(fp, 0, SEEK_SET);
 
-    while (!isAtEnd(fp))
-    {
+    while (!isAtEnd(fp)) {
         // printf("Inside second while loop for multi line comment.\n");
         c = fgetc(fp);
-        if (c == '/' && peek(fp) == '*')
-        {
+        if (c == '/' && peek(fp) == '*') {
             ++lines_of_comment;
             c = fgetc(fp);
-            if (c == '\n')
-            {
+            if (c == '\n') {
                 ++lines_of_comment;
             }
-            while (c != '*' && peek(fp) != '/')
-            {
+            while (c != '*' && peek(fp) != '/') {
                 c = fgetc(fp);
 
-                if (c == '\n')
-                {
+                if (c == '\n') {
                     ++lines_of_comment;
                 }
             }
@@ -140,13 +123,11 @@ void c_cloc(const char *filename)
     printf("%d\t %d\t %d\n", lines_of_code, lines_of_comment, blank_lines);
 }
 
-void c_cloc_line_wise(const char *filename)
-{
-    FILE *fp;
+void c_cloc_line_wise(const char* filename) {
+    FILE* fp;
     fp = fopen(filename, "r");
 
-    if (fp == NULL)
-    {
+    if (fp == NULL) {
         printf("Could not open file: %s\n", filename);
     }
 
@@ -166,10 +147,8 @@ void c_cloc_line_wise(const char *filename)
     printf("%d %d %d", lines_of_code, lines_of_comment, blank_lines);
 }
 
-int main(int argc, char const *argv[])
-{
-    if (argc == 2)
-    {
+int main(int argc, char const* argv[]) {
+    if (argc == 2) {
         printf("Some new file is there. %s\n", argv[1]);
         // printf("%s", argv[1]);
         c_cloc(argv[1]);

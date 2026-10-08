@@ -1,25 +1,25 @@
-#include <fstream>
-#include <cctype>
-#include <string>
-#include <algorithm>
-
 #include "analyzer.hpp"
+
 #include "comment_syntax.hpp"
 #include "stats.hpp"
 #include "string_operation_strip.hpp"
 
+#include <algorithm>
+#include <cctype>
+#include <fstream>
+#include <string>
+
 // Handles a line inside a multi-line comment
-static bool process_inside_multiline(const std::string &line, const comment_syntax::CommentSyntax &syntax, stats::Stats &stat)
-{
-    if (line.empty())
-    {
+static bool process_inside_multiline(const std::string& line,
+                                     const comment_syntax::CommentSyntax& syntax,
+                                     stats::Stats& stat) {
+    if (line.empty()) {
         stat.blank_lines++;
         return true; // still inside multi-line comment
     }
 
     size_t end_pos = line.find(syntax.multi_line_end);
-    if (end_pos == std::string::npos)
-    {
+    if (end_pos == std::string::npos) {
         // Comment continues; no code on this line
         stat.lines_of_comment++;
         return true;
@@ -36,12 +36,12 @@ static bool process_inside_multiline(const std::string &line, const comment_synt
 }
 
 // Handles a line where multi-line comment starts at the beginning
-static bool process_multiline_start_at_beginning(const std::string &line, const comment_syntax::CommentSyntax &syntax, stats::Stats &stat)
-{
+static bool process_multiline_start_at_beginning(const std::string& line,
+                                                 const comment_syntax::CommentSyntax& syntax,
+                                                 stats::Stats& stat) {
     size_t end_pos = line.find(syntax.multi_line_end);
 
-    if (end_pos == std::string::npos)
-    {
+    if (end_pos == std::string::npos) {
         // Comment starts and continues
         stat.lines_of_comment++;
         return true;
@@ -58,11 +58,11 @@ static bool process_multiline_start_at_beginning(const std::string &line, const 
 }
 
 // Handles a line where multi-line comment starts mid-line (after some code)
-static bool process_multiline_start_midline(const std::string &line, const comment_syntax::CommentSyntax &syntax, stats::Stats &stat)
-{
+static bool process_multiline_start_midline(const std::string& line,
+                                            const comment_syntax::CommentSyntax& syntax,
+                                            stats::Stats& stat) {
     size_t start_pos = line.find(syntax.multi_line_start);
-    if (start_pos == std::string::npos)
-    {
+    if (start_pos == std::string::npos) {
         // No multi-line start found, treat whole line as code
         stat.lines_of_code++;
         return false;
@@ -78,8 +78,8 @@ static bool process_multiline_start_midline(const std::string &line, const comme
     return end_pos == std::string::npos; // true if comment continues
 }
 
-stats::Stats analyzer::analyze_files(const std::string &filename, const comment_syntax::CommentSyntax &syntax)
-{
+stats::Stats analyzer::analyze_files(const std::string& filename,
+                                     const comment_syntax::CommentSyntax& syntax) {
     std::ifstream infile(filename);
     std::string line;
 
@@ -92,48 +92,34 @@ stats::Stats analyzer::analyze_files(const std::string &filename, const comment_
 
     statistic.file_count++;
 
-    while (std::getline(infile, line))
-    {
+    while (std::getline(infile, line)) {
         std::string stripped_line = strip(line);
 
-        if (inside_multi_line_comment)
-        {
+        if (inside_multi_line_comment) {
             inside_multi_line_comment = process_inside_multiline(stripped_line, syntax, statistic);
             continue;
         }
 
-        if (!syntax.single_line.empty() && stripped_line.rfind(syntax.single_line, 0) == 0)
-        {
+        if (!syntax.single_line.empty() && stripped_line.rfind(syntax.single_line, 0) == 0) {
             // Line starts with single-line comment
             statistic.lines_of_comment++;
-        }
-        else if (syntax.supports_multi_line)
-        {
-            if (stripped_line.rfind(syntax.multi_line_start, 0) == 0)
-            {
+        } else if (syntax.supports_multi_line) {
+            if (stripped_line.rfind(syntax.multi_line_start, 0) == 0) {
                 // Multi-line starts at beginning
-                inside_multi_line_comment = process_multiline_start_at_beginning(stripped_line, syntax, statistic);
-            }
-            else if (stripped_line.find(syntax.multi_line_start) != std::string::npos)
-            {
+                inside_multi_line_comment =
+                    process_multiline_start_at_beginning(stripped_line, syntax, statistic);
+            } else if (stripped_line.find(syntax.multi_line_start) != std::string::npos) {
                 // Multi-line starts mid-line
-                inside_multi_line_comment = process_multiline_start_midline(stripped_line, syntax, statistic);
-            }
-            else if (stripped_line.empty())
-            {
+                inside_multi_line_comment =
+                    process_multiline_start_midline(stripped_line, syntax, statistic);
+            } else if (stripped_line.empty()) {
                 statistic.blank_lines++;
-            }
-            else
-            {
+            } else {
                 statistic.lines_of_code++;
             }
-        }
-        else if (stripped_line.empty())
-        {
+        } else if (stripped_line.empty()) {
             statistic.blank_lines++;
-        }
-        else
-        {
+        } else {
             statistic.lines_of_code++;
         }
     }
