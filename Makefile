@@ -11,9 +11,10 @@ ifeq ($(RELEASE),1)
     BUILD_FLAGS = -Wall -std=c++17 -pthread $(RELEASE_FLAGS)
 endif
 
-# Source and header directories
+# Source, header, and vendor directories
 SRC_DIR = src
 INC_DIR = include
+VENDOR_DIR = vendor
 BUILD_DIR = makeBuild
 
 # Source and header files
@@ -22,6 +23,9 @@ HDR = $(wildcard $(INC_DIR)/*.hpp)
 
 # Object files in build directory
 OBJ = $(patsubst $(SRC_DIR)/%.cpp, $(BUILD_DIR)/%.o, $(SRC))
+
+# Include paths
+INCLUDES = -I$(INC_DIR) -I$(VENDOR_DIR)
 
 # Executable
 ifeq ($(OS),Windows_NT)
@@ -37,24 +41,24 @@ $(shell mkdir -p $(BUILD_DIR) 2> NUL)
 
 # Build the executable
 $(TARGET): $(OBJ)
-	$(CC) $(BUILD_FLAGS) -I$(INC_DIR) -o $(TARGET) $(OBJ)
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) -o $(TARGET) $(OBJ)
 
 # Compile .cpp to .o and track headers
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(HDR)
-	$(CC) $(BUILD_FLAGS) -I$(INC_DIR) -c $< -o $@
-	
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) -c $< -o $@
+
 # Precompiled Catch2 object
 CATCH_OBJ = $(BUILD_DIR)/catch2.o
 
-$(CATCH_OBJ): tests/catch_main.cpp $(INC_DIR)/catch2/catch.hpp
-	$(CC) $(BUILD_FLAGS) -I$(INC_DIR) -c tests/catch_main.cpp -o $(CATCH_OBJ)
+$(CATCH_OBJ): tests/catch_main.cpp $(VENDOR_DIR)/catch2/catch.hpp
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) -c tests/catch_main.cpp -o $(CATCH_OBJ)
 
 # Test sources
 TEST_SRC = src/analyzer.cpp src/string_operation_strip.cpp
 TESTS = $(filter-out tests/catch_main.cpp, $(wildcard tests/*.cpp))
 
 test: $(CATCH_OBJ)
-	$(CC) $(BUILD_FLAGS) -I$(INC_DIR) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o run_tests
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o run_tests
 	$(RUNTESTS)
 
 # Clean build files
