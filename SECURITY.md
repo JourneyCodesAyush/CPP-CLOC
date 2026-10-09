@@ -64,7 +64,7 @@ You will receive a response within **48–72 hours**.
 
 ## ⚖️ About Dependencies
 
-All included dependencies (`argparse.hpp`, there is only one so far) are distributed under their original licenses.  
+All included dependencies (`argparse.hpp`, there is only one so far) are distributed under their original licenses.
 Security concerns in dependencies should be reported along with any issues in the main code.
 
 ---

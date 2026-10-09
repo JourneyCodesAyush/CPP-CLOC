@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Have an idea to improve the **CPP-CLOC** codebase?  
-        This could include refactoring functions, improving readability, or optimizing performance.  
+        Have an idea to improve the **CPP-CLOC** codebase?
+        This could include refactoring functions, improving readability, or optimizing performance.
         Please provide details below.
 
   - type: textarea
@@ -22,7 +22,7 @@ body:
     attributes:
       label: Why and How?
       placeholder: |
-        Why is this enhancement needed?  
+        Why is this enhancement needed?
         What changes do you suggest, and how should they improve CPP-CLOC?
     validations:
       required: true

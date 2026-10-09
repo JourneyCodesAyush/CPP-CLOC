@@ -2290,7 +2290,7 @@ protected:
   preprocess_arguments(const std::vector<std::string> &raw_arguments) const {
     std::vector<std::string> arguments{};
     for (const auto &arg : raw_arguments) {
-      
+
       const auto argument_starts_with_prefix_chars =
           [this](const std::string &a) -> bool {
         if (!a.empty()) {

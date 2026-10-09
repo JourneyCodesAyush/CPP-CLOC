@@ -5,8 +5,8 @@ body:
   - type: markdown
     attributes:
       value: |
-        Have an idea to improve **CPP-CLOC**?  
-        New language support, better statistics, or faster analysis?  
+        Have an idea to improve **CPP-CLOC**?
+        New language support, better statistics, or faster analysis?
         Please describe your proposal below.
 
   - type: input

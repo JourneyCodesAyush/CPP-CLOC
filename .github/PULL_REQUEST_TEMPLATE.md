@@ -8,7 +8,7 @@ Thank you for contributing to **CPP-CLOC**! Please complete this form so we can 
 
 _Provide a short, descriptive summary of the changes._
 
-**Example:**  
+**Example:**
 Fix miscounting of code lines when multiline comments end mid-line
 
 ---

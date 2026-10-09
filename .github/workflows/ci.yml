@@ -79,4 +79,3 @@ jobs:
             --errors-for-leak-kinds=definite,indirect \
             --error-exitcode=1 \
             ./cloc_cpp .
-

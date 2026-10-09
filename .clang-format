@@ -27,4 +27,3 @@ IncludeBlocks: Regroup
 SpaceBeforeParens: ControlStatements
 
 DerivePointerAlignment: false
-
