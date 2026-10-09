@@ -14,9 +14,10 @@ Your contributions help keep code counting accurate, fast, and cross-platform. ð
     - [3. Clone Your Fork](#3-clone-your-fork)
     - [4. Create a New Branch](#4-create-a-new-branch)
     - [5. Make Your Changes](#5-make-your-changes)
-    - [6. Commit Using Angular Format](#6-commit-using-angular-format)
-    - [7. Push Your Branch](#7-push-your-branch)
-    - [8. Open a Pull Request](#8-open-a-pull-request)
+    - [6. Code Formatting and Pre-commit Hooks](#6-code-formatting-and-pre-commit-hooks)
+    - [7. Commit Using Angular Format](#7-commit-using-angular-format)
+    - [8. Push Your Branch](#8-push-your-branch)
+    - [9. Open a Pull Request](#9-open-a-pull-request)
   - [Development Tips](#development-tips)
   - [Reporting Issues](#reporting-issues)
   - [Code of Conduct](#code-of-conduct)
@@ -111,7 +112,33 @@ make
 
 ---
 
-### 6. Commit Using Angular Format
+### 6. Code Formatting and Pre-commit Hooks
+
+This project uses clang-format to maintain consistent C/C++ formatting and pre-commit hooks to enforce code quality.
+
+Install pre-commit and enable the Git hooks:
+
+```bash
+python -m pip install pre-commit
+pre-commit install
+```
+Before committing, run all configured checks:
+
+```bash
+pre-commit run --all-files
+```
+
+To run only the formatting hook:
+```bash
+pre-commit run clang-format --all-files
+```
+The configured hooks check YAML files, fix missing end-of-file newlines, remove trailing whitespace, and format C/C++ files. Files under `vendor/` are excluded from clang-format.
+
+Please ensure all checks pass before submitting a pull request.
+
+---
+
+### 7. Commit Using Angular Format
 
 Commit messages must follow:
 
@@ -153,7 +180,7 @@ Commit body (for non-doc commits):
 
 ---
 
-### 7. Push Your Branch
+### 8. Push Your Branch
 
 ```bash
 git push origin feat/my-feature
@@ -161,7 +188,7 @@ git push origin feat/my-feature
 
 ---
 
-### 8. Open a Pull Request
+### 9. Open a Pull Request
 
 Include:
 
