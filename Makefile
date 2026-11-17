@@ -3,6 +3,12 @@ CC = g++
 CFLAGS = -Wall -g -std=c++17 -pthread
 RELEASE_FLAGS = -O3
 
+
+# Link statically on Windows to avoid MinGW runtime DLL conflicts
+ifeq ($(OS),Windows_NT)
+    LDFLAGS += -static
+endif
+
 # Default build = debug
 BUILD_FLAGS = $(CFLAGS)
 
@@ -41,7 +47,7 @@ $(shell mkdir -p $(BUILD_DIR) 2> NUL)
 
 # Build the executable
 $(TARGET): $(OBJ)
-	$(CC) $(BUILD_FLAGS) $(INCLUDES) -o $(TARGET) $(OBJ)
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) -o $(TARGET) $(OBJ) $(LDFLAGS)
 
 # Compile .cpp to .o and track headers
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(HDR)
@@ -58,7 +64,7 @@ TEST_SRC = src/analyzer.cpp src/string_operation_strip.cpp
 TESTS = $(filter-out tests/catch_main.cpp, $(wildcard tests/*.cpp))
 
 test: $(CATCH_OBJ)
-	$(CC) $(BUILD_FLAGS) $(INCLUDES) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o $(RUNTESTS)
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) $(TEST_SRC) $(TESTS) $(CATCH_OBJ) -o $(RUNTESTS) $(LDFLAGS)
 ifeq ($(OS),Windows_NT)
 	cmd.exe /d /c ".\$(RUNTESTS)"
 else
