@@ -6,7 +6,6 @@
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <vector>
 
 static void print_single_json(const stats::Stats& stat, std::stringstream& output);
 static void print_json(const result::Result& res, std::stringstream& output);

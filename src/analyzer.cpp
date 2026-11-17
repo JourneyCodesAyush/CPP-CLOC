@@ -4,8 +4,6 @@
 #include "stats.hpp"
 #include "string_operation_strip.hpp"
 
-#include <algorithm>
-#include <cctype>
 #include <fstream>
 #include <string>
 
