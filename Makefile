@@ -30,6 +30,7 @@ INCLUDES = -I$(INC_DIR) -I$(VENDOR_DIR)
 # Executable
 ifeq ($(OS),Windows_NT)
     TARGET = cloc_cpp.exe
+	LDFLAGS = -static
 	RUNTESTS = run_tests.exe
 else
     TARGET = cloc_cpp
@@ -41,7 +42,7 @@ $(shell mkdir -p $(BUILD_DIR) 2> NUL)
 
 # Build the executable
 $(TARGET): $(OBJ)
-	$(CC) $(BUILD_FLAGS) $(INCLUDES) -o $(TARGET) $(OBJ)
+	$(CC) $(BUILD_FLAGS) $(INCLUDES) -o $(TARGET) $(OBJ) $(LDFLAGS)
 
 # Compile .cpp to .o and track headers
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(HDR)
