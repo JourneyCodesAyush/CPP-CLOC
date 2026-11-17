@@ -60,7 +60,7 @@ Both goals have been largely achieved. While CPP-CLOC is not “feature-complete
 
 ## Current Version
 
-**v0.7.0** – Added parallel file processing (multi-threaded via `std::async`), automatically enabled for larger codebases. See
+**v0.7.1** – Internal cleanup of unused headers. See
 [CHANGELOG](./CHANGELOG.md) for details.
 
 ---

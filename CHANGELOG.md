@@ -8,6 +8,21 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## 0.7.1
+
+### Changed
+
+- Removed unused `#include` headers (internal cleanup only).
+
+### Notes
+
+- No changes to analyzer behavior, output, or cloc-style counting semantics.
+- Em-dash table separators proposed by @monjaris (#5) were reverted, since
+  multi-byte UTF-8 output renders incorrectly on default Windows consoles.
+  Thanks for the contribution!
+
+---
+
 ## 0.7.0
 
 ### Added

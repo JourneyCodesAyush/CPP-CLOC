@@ -16,7 +16,7 @@ struct MetaData {
 };
 
 inline constexpr MetaData info{"journeycodesayush", "cpp-cloc",
-                               "github.com/journeycodesayush/cpp-cloc", "v0.7.0"};
+                               "github.com/journeycodesayush/cpp-cloc", "v0.7.1"};
 
 enum class OutputFormat { JSON, XML, CSV, STDOUT };
 
