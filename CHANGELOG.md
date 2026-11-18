@@ -8,6 +8,22 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
+## 0.7.2
+
+### Changed
+
+- Windows builds now statically link MinGW runtime libraries,
+  eliminating dependencies on MinGW runtime DLLs.
+  This fixes a silent exit code 127 when launched from Git Bash
+  with a different MinGW installation on PATH (#6).
+  Thanks to @sheep-yang-young for the fix (#7).
+
+### Notes
+
+- No changes to analyzer behavior, output, or cloc-style counting semantics.
+
+---
+
 ## 0.7.1
 
 ### Changed

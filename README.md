@@ -60,7 +60,7 @@ Both goals have been largely achieved. While CPP-CLOC is not “feature-complete
 
 ## Current Version
 
-**v0.7.1** – Internal cleanup of unused headers. See
+**v0.7.2** – Windows builds now link statically, fixing a Git Bash startup failure caused by MinGW DLL conflicts. See
 [CHANGELOG](./CHANGELOG.md) for details.
 
 ---
