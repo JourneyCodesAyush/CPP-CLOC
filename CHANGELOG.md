@@ -8,7 +8,7 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
-## 0.7.2
+## v0.7.2
 
 ### Changed
 
@@ -24,7 +24,7 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
-## 0.7.1
+## v0.7.1
 
 ### Changed
 
@@ -39,7 +39,7 @@ Counting behaviors aligned with `cloc` are intentional and not considered bugs.
 
 ---
 
-## 0.7.0
+## v0.7.0
 
 ### Added
 
